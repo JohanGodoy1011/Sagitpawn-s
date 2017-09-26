@@ -1,7 +1,7 @@
 # Sagitpawn's
 
 
-  ## Índice: <h2>
+  ## Índice: 
 <a href="#grupos">1. Integrantes del Grupo</a><br>
 <a href="#desc">2. Descripción del Juego</a><br>
 <a href="#reglas">3. Reglas</a><br>
@@ -38,14 +38,21 @@
         <h2>
             <a href="#TOC">3. Reglas</a>
         </h2>
-        <p>
-          <strong>En el mundo habrá:</strong>
-        </p>
-    <ul>
-      <li><strong>Escenario/Mapa:</strong> habrá distintas pantallas, cuya composición implicará una mayor dificultad, siendo mapas más grandes o con terrenos elevados.</li>
-      <li><strong>Dos jugadores: </strong>situados cada uno en un extremo de un mapa. Se decidirá a suertes quién de los dos empieza. Los personajes son estáticos y sólo podrán controlar intensidad y ángulo de disparo en su turno. Cada personaje cuenta con 100 puntos de vida y en su turno puede disparar su arma causando daño variable en función de la zona de impacto.</li>
-      <li><strong>Objetivo:</strong> calcular la trayectoria óptima del disparo de nuestro personaje para infligir el máximo daño posible al rival. Cuando la barra de vida de este se reduzca a 0, se finalizará la partida.</li>
-      <li><strong>Recompensa: </strong>se otorgarán un cierto número de copas al jugador que gane, que se sumarán a su perfil de juego para ser mostrado en un ranking global, accesible desde la pantalla de inicio. </li>
-</ul>
- </div>
+  
+  <ul>  
+    <li><p><strong>En el mundo habrá:</strong></p>
+     <ul>
+       <li> <p><strong>Escenario/Mapa:</strong> habrá distintas pantallas, cuya composición implicará una mayor dificultad, siendo mapas más grandes o con terrenos elevados.</p>
+       </li>
+      <li><p><strong>Dos jugadores:</strong> situados cada uno en un extremo de un mapa. Se decidirá a suertes quién de los dos empieza. Los personajes son estáticos y sólo podrán controlar intensidad y ángulo de disparo en su turno. Cada personaje cuenta con 100 puntos de vida y en su turno puede disparar su arma causando daño variable en función de la zona de impacto.</p>
+      </li>    
+    </ul>
+    </li>
+   <li><p><strong>Objetivo:</strong> calcular la trayectoria óptima del disparo de nuestro personaje para infligir el máximo daño posible al rival. Cuando la barra de vida de este se reduzca a 0, se finalizará la partida.</p>
+   </li>
+  <li><p><strong>Recompensa:</strong> se otorgarán un cierto número de copas al jugador que gane, que se sumarán a su perfil de juego para ser mostrado en un ranking global, accesible desde la pantalla de inicio. </p>
+  </li>
+ </ul>
+  
+</div>
     
