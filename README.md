@@ -16,7 +16,7 @@
           - GitHub: <i>ularrarte</i> <br><br>
             <strong>- Jorge Martín Sánchez </strong><br>
             - Mail: <a href="mailto:j.martinsanchez8@alumnos.urjc.es">j.martinsanchez8@alumnos.urjc.es</a><br>
-          - GitHub: <i>j.martinsanchez8</i><br><br>
+          - GitHub: <i>JorgeMS05</i><br><br>
             <strong>- Jorge Moreno Morales</strong><br>    
             - Mail: <a href="mailto:j.morenomora@alumnos.urjc.es">j.morenomora@alumnos.urjc.es</a><br>
           - GitHub: <i>kokebr</i><br><br>
