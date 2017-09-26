@@ -1,5 +1,8 @@
 # Sagitpawn-s
-Práctica de Redes - Integrantes de Grupo:
-  Jorge Moreno Morales
-  Unai Larrarte Flor
-  Jorge Martín Sánchez
+
+
+  Integrantes del Grupo:
+    -**-Unai Larrarte Flor
+    -Jorge Moreno Morales
+    -Jorge Martín Sáncchez**
+    
