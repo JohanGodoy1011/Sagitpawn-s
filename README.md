@@ -28,7 +28,7 @@
             <a href="#TOC">2. Descripción del Juego</a>
         </h2>
         <p>
-             Sagitpawn's es un videojuego 2D estilo cartoon de disparos por turnos en el cual dos jugadores se enfrentarán entre ellos calculando la trayectoria de sus disparos para infligir el máximo daño posible al rival hasta reducir su barra de salud a 0. 
+          <i>Sagitpawn's</i> es un videojuego 2D estilo cartoon de disparos por turnos en el cual dos jugadores se enfrentarán entre ellos calculando la trayectoria de sus disparos para infligir el máximo daño posible al rival hasta reducir su barra de salud a 0. 
           <br><br>
           El jugador más certero alcanzará la cima del ranking, lo cuál le pondrá un precio más alto a su cabeza.
    </p>
