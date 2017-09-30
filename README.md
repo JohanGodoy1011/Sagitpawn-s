@@ -55,11 +55,3 @@
  </ul>
   
 </div>
-
-
----
-
-## Fase 2: Juego en local.
-
-<div></div>
-    
