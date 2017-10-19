@@ -1,0 +1,12 @@
+body{
+    /* Empleamos una imagen de fondo sin repetición que se ajuste a la pantalla */
+    background: url(Imagenes/Fondo.jpg) no-repeat center center fixed;
+    /* Válido para Chrome/Safari */
+    -webkit-background-size: cover;
+    /* Al no repetir la imagen, con cover cubrimos la ventana entera */
+    background-size: cover;
+}
+
+#canvas{
+    align-content: center;
+}
