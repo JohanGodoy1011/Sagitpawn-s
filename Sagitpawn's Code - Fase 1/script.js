@@ -5,8 +5,8 @@ window.onload = function(){
     var solidos;
   
     function preload() {
-        game.load.image('fondo1', 'Imagenes/Background1.png');                      //Cargamos el la primera imagen de fondo.
-        game.load.image('suelo', 'Imagenes/suelo.png');                             //Cargamos el suelo.
+        game.load.image('fondo1', 'Imagenes/Background2.png');                      //Cargamos el la primera imagen de fondo.
+        game.load.image('suelo', 'Imagenes/suelo1.png');                            //Cargamos el suelo.
 
         game.load.spritesheet('jugador1', 'Imagenes/dude.png', 32, 48);             //Cargamos el sprite del primer jugador.
 
@@ -19,16 +19,17 @@ window.onload = function(){
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0, 0, 2048, 531);                  //Delimitar los bordes del mapa para que funcione mov de camara
+        game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione mov de camara
         cursors = game.input.keyboard.createCursorKeys();
 
-        game.add.sprite(0, -300, 'fondo1');                     //Agregamos el fondo al canvas
+        game.add.sprite(0, 0, 'fondo1');                        //Agregamos el fondo al canvas
         
         solidos = game.add.group ();                            //Creamos el grupo de solidos
         solidos.enableBody = true;                              //Habilitamos las físicas para el grupo de sólidos
 
-        var suelo = solidos.create(0, game.world.height - 64, 'suelo');
-        suelo.scale.setTo(2, 10);                               //Escalamos la plataforma, (no se como funciona xd)
+        var suelo = solidos.create(0, game.world.height - 80, 'suelo');
+        
+        suelo.scale.setTo(1, 1);                               //Escalamos la plataforma, (no se como funciona xd)
         suelo.body.immovable = true;                            //Para que la plataforma no se caiga al colisionar con ella
 
 
@@ -46,7 +47,7 @@ window.onload = function(){
     }
 
     function update() {
-        
+
         var hitPlatform = game.physics.arcade.collide(jugador1, solidos);
         
         //Movimiento del jugador 1
@@ -55,13 +56,13 @@ window.onload = function(){
             if (cursors.left.isDown)
             {
                 //  Move to the left
-                jugador1.body.velocity.x = -150;
+                jugador1.body.velocity.x = -350;
         
             }
             else if (cursors.right.isDown)
             {
                 //  Move to the right
-                jugador1.body.velocity.x = 150;
+                jugador1.body.velocity.x = 350;
             }
             else
             {
