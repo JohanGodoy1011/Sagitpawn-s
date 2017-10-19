@@ -7,6 +7,13 @@ body{
     background-size: cover;
 }
 
+
 #canvas{
-    align-content: center;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 30%;
+    left: 26.75%;
+    margin-top: -75px;
+    margin-left: -75px;
 }
