@@ -118,17 +118,14 @@ window.onload = function(){
         catchFlag = true;
         
     }
-<<<<<<< HEAD
      
 
 
-    function launch() {
-=======
+
         
     function launchBall() {
 
         bolaON = true;
->>>>>>> 14481fef553a3a9a497bb6a0f687d6f26da467b0
 
         //Parámetros de la bola
         ball = game.add.sprite(jugador1.x, jugador1.y, 'ball');
@@ -235,12 +232,9 @@ window.onload = function(){
             analog.alpha = 0.5;
             analog.rotation = arrow.rotation - 3.14 / 2;
             analog.height = game.physics.arcade.distanceToPointer(arrow);  
-<<<<<<< HEAD
             launchVelocity = analog.height;
 
-=======
             launchVelocity = analog.height - 10;
->>>>>>> 14481fef553a3a9a497bb6a0f687d6f26da467b0
         }
         if (hitJugador ){
 
