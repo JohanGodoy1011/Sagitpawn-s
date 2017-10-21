@@ -1,10 +1,13 @@
 window.onload = function(){
+
     var game = new Phaser.Game(1100, 700, Phaser.AUTO, 'canvas', { preload: preload, create: create, update: update });
+   
     
     var cursors;
     var solidos;
     var jugador1;
     //var jugador2;
+
 
     var suelo;
     var arrow;
@@ -12,11 +15,19 @@ window.onload = function(){
     var catchFlag = false;
     var launchVelocity = 0;
 
-    function preload() {
-        game.load.image('fondo1', 'Imagenes/Background2.png');                      //Cargamos el la primera imagen de fondo.
-        game.load.image('suelo', 'Imagenes/suelo1.png');                            //Cargamos el suelo.
 
-        game.load.spritesheet('jugador1', 'Imagenes/dude.png', 32, 48);             //Cargamos el sprite del primer jugador.
+    function preload() {
+
+        game.load.image('fondo1', 'Imagenes/Background2.png');                                  //Cargamos la primera imagen de fondo.
+        game.load.image('suelo', 'Imagenes/suelo1.png');                                        //Cargamos el suelo.
+
+        game.load.spritesheet('jugador1', 'Sprites/lanzer.png', 55, 75, 20);                    //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
+        game.load.spritesheet('j1Cargando', 'Sprites/lanzerCharging.png',55, 75, 8);            //Cargamos la animación del j1 para cargar 'charging'
+        game.load.spritesheet('j1Disparando', 'Sprites/lanzerFire.png',55, 75, 20);             //Cargamos la animación del j1 para disparar 'fire'
+        
+        // Preguntar duda acerca de como reacciona un spritesheet con:
+        // sprite.rotation = game.physics.arcade.angleToPointer(sprite);
+
 
         //Sprites para cargar las mierdas de las bolas
         game.load.image('arrow', 'Imagenes/longarrow2.png');
@@ -30,14 +41,20 @@ window.onload = function(){
     function create() {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.physics.arcade.gravity.y = 200;
 
 
         game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
+        
+        // Creado para pruebas externas, no implementar en el juego final
         cursors = game.input.keyboard.createCursorKeys();
 
-        game.add.sprite(0, 0, 'fondo1');                        //Agregamos el fondo al canvas
+
+        // Agregación de elementos de la escena
+
+        // Fondo
+        game.add.sprite(0, 0, 'fondo1');                        
         
+        // Suelo
         solidos = game.add.group ();                            //Creamos el grupo de solidos
         solidos.enableBody = true;                              //Habilitamos las físicas para el grupo de sólidos
 
@@ -46,9 +63,11 @@ window.onload = function(){
         suelo.scale.setTo(1, 1);                               //Escalamos la plataforma, (no se como funciona xd)
         suelo.body.immovable = true;                           //Para que la plataforma no se caiga al colisionar con ella
 
+        // Jugador 1
+        jugador1 = game.add.sprite(200, 620, 'jugador1');
+        jugador1.animations.add('idle');                
+        jugador1.animations.play('idle', 10, true);             //Cargamos la spritesheet y le damos nombre a la animación como idle.
 
-        jugador1 = game.add.sprite(200, 400, 'jugador1');
-        
         game.physics.arcade.enable(jugador1);
 
         jugador1.body.bounce.y = 0.2;        
@@ -63,7 +82,7 @@ window.onload = function(){
         
         game.physics.enable(analog, Phaser.Physics.ARCADE);
         
-        analog.body.allowGravity = false;
+        analog.body.allowGravity = true;
         analog.width = 8;
         analog.rotation = 220;
         analog.alpha = 0;
@@ -77,7 +96,6 @@ window.onload = function(){
         arrow.body.moves = false;
         arrow.body.allowGravity = false;
         arrow.alpha = 0;
-            
             
         // Enable input.
         jugador1.inputEnabled = true;
@@ -95,11 +113,13 @@ window.onload = function(){
         
         ball.body.moves = false;
         ball.body.velocity.setTo(0, 0);
-        ball.body.allowGravity = false;
+        ball.body.allowGravity = true;
         catchFlag = true;
         
     }
-        
+     
+
+
     function launch() {
 
         game.camera.follow(ball);
@@ -121,19 +141,50 @@ window.onload = function(){
 
     }
 
+
+    //////////////////////////////////////////////////////
+    // Sistema de control de spritesheets:
+
+    function chargeJ1(){
+        jugador1.loadTexture('j1Cargando', 0);
+        jugador1.animations.add('charging');
+        jugador1.animations.play('charging', 8, true);
+    }
+
+    function fireJ1(){
+        jugador1.loadTexture('j1Disparando', 0);
+        jugador1.animations.add('fire');
+        jugador1.animations.play('fire', 8, true);
+    }
+
+    function idleJ1(){
+        jugador1.loadTexture('jugador1', 0);
+        jugador1.animations.add('idle');
+        jugador1.animations.play('idle', 8, true);
+    }
+
+    ///////////////////////////////////////////////////////
+    
+
     function update() {
 
         //Variable para detectar colisión jugador-solidos
         var hitPlatform = game.physics.arcade.collide(jugador1, solidos);
+
         //Variable para detectar colisión pelota-jugador:
         var hitJugador = game.physics.arcade.collide(jugador1, ball);
-        //Movimiento del jugador 1
+
+        //Variable para detectar colisión pelota-solidos:
+        var hitBall = game.physics.arcade.collide(ball, solidos);
+
+        /*
+        //Movimiento del jugador 1 (innecesario)
         jugador1.body.velocity.x = 0;
         
         if (cursors.left.isDown)
         {
            // Move to the left
-            jugador1.body.velocity.x = -350;
+           jugador1.body.velocity.x = -350;
         }
         else if (cursors.right.isDown)
         {
@@ -143,7 +194,7 @@ window.onload = function(){
         else
         {
             //Stand still
-            jugador1.animations.stop();
+            //jugador1.animations.stop();
         }
         
         //  Allow the player to jump if they are touching the ground.
@@ -151,8 +202,20 @@ window.onload = function(){
         {
             jugador1.body.velocity.y = -350;
         }
+        */
+
+        // Control de eventos cuando se clica sobre el jugador
+
         if (catchFlag == true)
         {
+            
+            // Control del spritesheet del jugador1
+            game.input.onDown.add(chargeJ1, this);
+            game.input.onUp.add(fireJ1, this);
+            game.input.onUp.add(idleJ1, this);
+            
+
+
             //  Track the ball sprite to the mouse  
             analog.x = game.input.activePointer.worldX;   
             analog.y = game.input.activePointer.worldY;
@@ -165,6 +228,7 @@ window.onload = function(){
             analog.rotation = arrow.rotation - 3.14 / 2;
             analog.height = game.physics.arcade.distanceToPointer(arrow);  
             launchVelocity = analog.height;
+
         }
         if (hitJugador){
 
