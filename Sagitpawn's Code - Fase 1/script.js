@@ -13,6 +13,7 @@ window.onload = function(){
     var arrow;
     var ball;
     var catchFlag = false;
+    var bolaON = false;
     var launchVelocity = 0;
 
 
@@ -101,7 +102,7 @@ window.onload = function(){
         jugador1.inputEnabled = true;
         jugador1.input.start(0, true);
         jugador1.events.onInputDown.add(set);
-        jugador1.events.onInputUp.add(launch);
+        jugador1.events.onInputUp.add(launchBall);
 
         game.camera.follow(jugador1);
 
@@ -117,18 +118,24 @@ window.onload = function(){
         catchFlag = true;
         
     }
+<<<<<<< HEAD
      
 
 
     function launch() {
+=======
+        
+    function launchBall() {
 
-        game.camera.follow(ball);
+        bolaON = true;
+>>>>>>> 14481fef553a3a9a497bb6a0f687d6f26da467b0
+
         //Parámetros de la bola
         ball = game.add.sprite(jugador1.x, jugador1.y, 'ball');
         game.physics.enable(ball, Phaser.Physics.ARCADE);
         ball.anchor.setTo(0.5, 0.5);
         ball.body.collideWorldBounds = true;
-        ball.body.bounce.setTo(0.9, 0.9);
+        ball.body.bounce.setTo(0.5, 0.5);
 
         catchFlag = false;
         ball.body.moves = true;
@@ -180,6 +187,7 @@ window.onload = function(){
         /*
         //Movimiento del jugador 1 (innecesario)
         jugador1.body.velocity.x = 0;
+
         
         if (cursors.left.isDown)
         {
@@ -227,12 +235,27 @@ window.onload = function(){
             analog.alpha = 0.5;
             analog.rotation = arrow.rotation - 3.14 / 2;
             analog.height = game.physics.arcade.distanceToPointer(arrow);  
+<<<<<<< HEAD
             launchVelocity = analog.height;
 
+=======
+            launchVelocity = analog.height - 10;
+>>>>>>> 14481fef553a3a9a497bb6a0f687d6f26da467b0
         }
-        if (hitJugador){
+        if (hitJugador ){
 
             ball.kill();
+
+        }
+
+        //Definimos las condiciones que harán que la cámara siga al personaje/pelota
+        if (bolaON == true){
+
+            game.camera.follow(ball);
+
+        }else {
+
+            game.camera.follow(jugador1);
 
         }
     }
