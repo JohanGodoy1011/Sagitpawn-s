@@ -100,7 +100,7 @@ window.onload = function(){
             player.enableBody = true;
             
             jugador1 = player.create(200, 680, 'jugador1');
-            jugador2 = player.create(1000, 680, 'j1Disparando');
+            jugador2 = player.create(2000, 680, 'j1Disparando');
 
             jugador1.animations.add('idle');                
             jugador1.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 1 y le damos nombre a la animación como idle.
@@ -218,14 +218,12 @@ window.onload = function(){
                 game.input.onDown.add(chargeJ1, this);
                 game.input.onUp.add(fireJ1, this);
                 game.input.onUp.add(idleJ1, this);
-                turn = false;
                 
                 // Control del spritesheet del jugador2
                 game.input.onDown.add(chargeJ2, this);
                 game.input.onUp.add(fireJ2, this);
                 game.input.onUp.add(idleJ2, this);
-                turn = true;
-    
+
 
                 //  Track the ball sprite to the mouse  
                 analog.x = game.input.activePointer.worldX;   
@@ -243,8 +241,10 @@ window.onload = function(){
                 launchVelocity = analog.height - 10;
             }
 
-            if (hitJugador ){
+            if (hitJugador || hitBall){
                 ball.kill();
+                bolaON = false;
+                turn = !turn;
             }
     
             //Definimos las condiciones que harán que la cámara siga al personaje/pelota
