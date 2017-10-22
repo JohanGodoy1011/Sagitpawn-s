@@ -24,7 +24,10 @@ window.onload = function(){
         var bolaON = false;
         var launchVelocity = 0;
     
-    
+        var barConfig;
+        var barraJ1;
+        var barraJ2;
+
         function preload() {
     
             game.load.image('fondo1', 'Imagenes/Background2.png');                                  //Cargamos la primera imagen de fondo.
@@ -49,6 +52,7 @@ window.onload = function(){
         function create() {
     
 
+            
             game.physics.startSystem(Phaser.Physics.ARCADE);
             game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
             
@@ -100,7 +104,7 @@ window.onload = function(){
             player.enableBody = true;
             
             jugador1 = player.create(200, 680, 'jugador1');
-            jugador2 = player.create(1000, 680, 'j1Disparando');
+            jugador2 = player.create(2000, 680, 'j1Disparando');
 
             jugador1.animations.add('idle');                
             jugador1.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 1 y le damos nombre a la animación como idle.
@@ -117,8 +121,27 @@ window.onload = function(){
             jugador2.events.onInputDown.add(set);
             jugador2.events.onInputUp.add(launchBall);
 
+
+            //////////////////////////////////////////////////
+            ///////////////// Barra de Vida///////////////////
+            //////////////////////////////////////////////////
+            
+            //Página tutorial de la barra https://github.com/bmarwane/phaser.healthbar/blob/master/README.md
+            
+            barConfig = {x: 140, y: 50};   //Configuración para la barra
+
+            barraJ1 = new HealthBar(this.game, barConfig);
+            barraJ1.setPosition(140, 50);
+            barraJ1.setFixedToCamera(true);
+
+            barraJ2 = new HealthBar(this.game, barConfig);
+            barraJ2.setPosition(950, 50);
+            barraJ2.setFixedToCamera(true);
+            
         }
     
+        
+
         function set(ball, pointer) {
             
             ball.body.moves = false;
@@ -199,10 +222,26 @@ window.onload = function(){
         }
     
         ///////////////////////////////////////////////////////
-        
+        //////Gestión vida y puntuación para el Jugador1///////
+        ///////////////////////////////////////////////////////
+
+
+        function colisionPelotaJ1(player, ball) {
+            var porcentaje = 100;
+            barraJ1.setPercent(porcentaje - 20);
+            console.log("Hola2");
+        }
+
+        function colisionPelotaJ2(player, ball) {
+            var porcentaje = 100;
+            barraJ2.setPercent(porcentaje - 20);
+            console.log("Hola1");
+
+        }
     
         function update() {
-    
+            game.physics.arcade.overlap(jugador1, ball, colisionPelotaJ1, null, this);
+            game.physics.arcade.overlap(jugador2, ball, colisionPelotaJ2, null, this);
             //Variable para detectar colisión jugador-solidos
             var hitPlatform = game.physics.arcade.collide(jugador1, solidos);
             //Variable para detectar colisión pelota-jugador:
@@ -218,14 +257,12 @@ window.onload = function(){
                 game.input.onDown.add(chargeJ1, this);
                 game.input.onUp.add(fireJ1, this);
                 game.input.onUp.add(idleJ1, this);
-                turn = false;
                 
                 // Control del spritesheet del jugador2
                 game.input.onDown.add(chargeJ2, this);
                 game.input.onUp.add(fireJ2, this);
                 game.input.onUp.add(idleJ2, this);
-                turn = true;
-    
+
 
                 //  Track the ball sprite to the mouse  
                 analog.x = game.input.activePointer.worldX;   
@@ -243,8 +280,10 @@ window.onload = function(){
                 launchVelocity = analog.height - 10;
             }
 
-            if (hitJugador ){
+            if (hitJugador || hitBall){
                 ball.kill();
+                bolaON = false;
+                turn = !turn;
             }
     
             //Definimos las condiciones que harán que la cámara siga al personaje/pelota
