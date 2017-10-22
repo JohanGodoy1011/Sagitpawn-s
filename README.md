@@ -55,3 +55,17 @@
  </ul>
   
 </div>
+
+<!--
+---
+## Fase 2: Desarrollo del juego en local
+<div id="fase2"> 
+  <h2>Objetivos:</h2>
+  <ul>
+    <li>Diseñar el sistema de jeugo base de Sagitpawn's</li>
+    <li>Diseño del html, así como de sprites y recursos gráficos y de audio que empleará el juego</li>
+    <li>Permitir jugar una partida en local</li>
+  </ul>
+  <p id="cambios">El equipo de desarrollo ha creado una carpeta para el desarrollo del código del juego, que incluye archivos js, imágenes y sprites propios y un fichero html donde se ha implementado Sagitpawn's empleando Phaser. En esta fase, el equipo ha implementado la base de Sagitpawn's: un escenario con dos personajes presentes en el que ,por turnos, cargan un disparo con el que tratan de impactar al rival.<br> Se han empleado spritesheets originales para los personajes, que cuentan con animaciones básicas aún en desarrollo. Mediante ejemplos de la web de Phaser se ha podido implementar un sistema de disparo que tenga en cuenta el vector resultante de la diferencia entre la posición donde se hace click y en la que se suelta el botón, dando la opción a hacer tiros de más o menos fuerza y con distinto ángulo. Se incluye además el sistema de gestión de la vida de los personajes</p>
+</div>
+-->
