@@ -42,6 +42,8 @@ window.onload = function(){
             game.load.spritesheet('jugador1', 'Sprites/lanzer.png', 55, 75, 20);                    //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
             game.load.spritesheet('j1Cargando', 'Sprites/lanzerCharging.png',55, 75, 8);            //Cargamos la animación del j1 para cargar 'charging'
             game.load.spritesheet('j1Disparando', 'Sprites/lanzerFire.png',55, 75, 20);             //Cargamos la animación del j1 para disparar 'fire'
+            game.load.spritesheet('jugador2', 'Sprites/lanzer2.png', 55, 75, 20);                    //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
+            game.load.spritesheet('j2Cargando', 'Sprites/lanzer2Charging.png',55, 75, 8);
             // Falta generar un nuevo modelo para el jugador 2, hasta entonces se empleará el spritesheet j1Disparando
             // Preguntar duda acerca de como reacciona un spritesheet con:
             // sprite.rotation = game.physics.arcade.angleToPointer(sprite);
@@ -109,7 +111,7 @@ window.onload = function(){
             player.enableBody = true;
             
             jugador1 = player.create(200, 680, 'jugador1');
-            jugador2 = player.create(2000, 680, 'j1Disparando');
+            jugador2 = player.create(800, 680, 'jugador2');
 
             jugador1.animations.add('idle');                
             jugador1.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 1 y le damos nombre a la animación como idle.
@@ -119,11 +121,13 @@ window.onload = function(){
     
             // Enable input para ambos jugadores
             jugador1.inputEnabled = true;
-            jugador1.events.onInputDown.add(set);
-            jugador1.events.onInputUp.add(launchBall);
+            jugador1.events.onInputDown.add(set);                   //Genera el objeto ball
+            jugador1.events.onInputDown.add(setSprite);             //Cambia el spritesheet
+            jugador1.events.onInputUp.add(launchBall);              //Dispara la bola y cambia nuevamente el spritesheet
     
             jugador2.inputEnabled = true;
             jugador2.events.onInputDown.add(set);
+            jugador2.events.onInputDown.add(setSprite);                        
             jugador2.events.onInputUp.add(launchBall);
 
 
@@ -146,33 +150,37 @@ window.onload = function(){
     
         
 
-        function set(ball, pointer) {
-            console.log(pointer);
-            if (this.pointer == jugador1){
-                chargeJ1();
-            } else {
-                console.log("Hola");
-                chargeJ2();
-            }
-           // game.physics.enable(arrow, Phaser.Physics.ARCADE);
+        // Esta función genera un cuerpo ball (el proyectil)
+        function set(ball) {
             ball.body.moves = false;
             ball.body.velocity.setTo(0, 0);
             ball.body.allowGravity = true;
-            catchFlag = true;
-            
+            catchFlag = true; 
+        }
+
+        // Con el parámetro pointer sabemos donde clicamos y alteramos el spritesheet
+        function setSprite(pointer) {
+            if (pointer == jugador1){
+                console.log("Jauja");
+                chargeJ1();
+            } else if (pointer == jugador2){
+                console.log("Hola");
+                chargeJ2();
+            }
         }
     
-            
+        // El cuerpo ball creado en set se genera en el lugar donde se clica gracias a la info que nos da el parámetro pointer  
         function launchBall(pointer) {
     
             bolaON = true;
-    
+
             // Dependiendo de dónde clickemos, generamos el proyectil en uno u otro sprite
             if (pointer == jugador1){
                 ball = game.add.sprite(jugador1.x, jugador1.y, 'ball');
-                //fireJ1();
+                idleJ1();                                                           // Activamos el spritesheet correspondiente al soltar
             } else {
                 ball = game.add.sprite(jugador2.x, jugador2.y, 'ball');
+                idleJ2();                                                           // Activamos el spritesheet correspondiente
             }
 
             //Parámetros de la bola
@@ -202,13 +210,13 @@ window.onload = function(){
             jugador1.animations.add('charging');
             jugador1.animations.play('charging', 8, true);
         }
-    
+        /*
         function fireJ1(){
             jugador1.loadTexture('j1Disparando', 0);
             jugador1.animations.add('fire');
             jugador1.animations.play('fire', 8, true);
         }
-    
+        */
         function idleJ1(){
             jugador1.loadTexture('jugador1', 0);
             jugador1.animations.add('idle');
@@ -217,21 +225,21 @@ window.onload = function(){
 
         // Sistema de control de spritesheets j2:   modularizar proximamente
          function chargeJ2(){
-            jugador1.loadTexture('j1Cargando', 0);
-            jugador1.animations.add('charging');
-            jugador1.animations.play('charging', 8, true);
+            jugador2.loadTexture('j2Cargando', 0);
+            jugador2.animations.add('charging');
+            jugador2.animations.play('charging', 8, true);
         }
-    
+        /*
         function fireJ2(){
-            jugador1.loadTexture('j1Disparando', 0);
-            jugador1.animations.add('fire');
-            jugador1.animations.play('fire', 8, true);
+            jugador2.loadTexture('j1Disparando', 0);
+            jugador2.animations.add('fire');
+            jugador2.animations.play('fire', 8, true);
         }
-    
+        */
         function idleJ2(){
-            jugador1.loadTexture('jugador1', 0);
-            jugador1.animations.add('idle');
-            jugador1.animations.play('idle', 8, true);
+            jugador2.loadTexture('jugador2', 0);
+            jugador2.animations.add('idle');
+            jugador2.animations.play('idle', 8, true);
         }
     
         ///////////////////////////////////////////////////////
@@ -263,18 +271,7 @@ window.onload = function(){
             // Control de eventos cuando se clica sobre el jugador
             if (catchFlag == true) {
                 
-                /*
-                // Control del spritesheet del jugador1
-                game.input.onDown.add(chargeJ1, this);
-                game.input.onUp.add(fireJ1, this);
-                game.input.onUp.add(idleJ1, this);
                 
-                // Control del spritesheet del jugador2
-                game.input.onDown.add(chargeJ2, this);
-                game.input.onUp.add(fireJ2, this);
-                game.input.onUp.add(idleJ2, this);
-
-*/
                 //  Track the ball sprite to the mouse  
                 analog.x = game.input.activePointer.worldX;   
                 analog.y = game.input.activePointer.worldY;
@@ -312,13 +309,10 @@ window.onload = function(){
     
             //Definimos las condiciones que harán que la cámara siga al personaje/pelota
             if (bolaON == true){
-
                 game.camera.follow(ball);
             }else if(bolaON == false && turn == true) {
-
                 game.camera.follow(jugador1);
             } else if(bolaON == false && turn == false) {
-
                 game.camera.follow(jugador2);                
             }
 
