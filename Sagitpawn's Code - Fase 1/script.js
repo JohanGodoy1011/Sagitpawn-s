@@ -27,6 +27,12 @@ window.onload = function(){
         var barConfig;
         var barraJ1;
         var barraJ2;
+        var vidaJ1 = 100;
+        var vidaJ2 = 100;
+
+        var hit = false;
+        var diftime = 0;
+        var elapsed = 0;
 
         function preload() {
     
@@ -51,8 +57,7 @@ window.onload = function(){
     
         function create() {
     
-
-            
+           
             game.physics.startSystem(Phaser.Physics.ARCADE);
             game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
             
@@ -128,22 +133,28 @@ window.onload = function(){
             
             //Página tutorial de la barra https://github.com/bmarwane/phaser.healthbar/blob/master/README.md
             
-            barConfig = {x: 140, y: 50};   //Configuración para la barra
+            barConfig = {width: 70,
+                        height: 15,};   //Configuración para la barra
 
             barraJ1 = new HealthBar(this.game, barConfig);
-            barraJ1.setPosition(140, 50);
-            barraJ1.setFixedToCamera(true);
+            barraJ1.setPosition(jugador1.x + 20, jugador1.y - 10);
 
             barraJ2 = new HealthBar(this.game, barConfig);
-            barraJ2.setPosition(950, 50);
-            barraJ2.setFixedToCamera(true);
+            barraJ2.setPosition(jugador2.x + 20, jugador2.y - 10);
             
         }
     
         
 
         function set(ball, pointer) {
-            
+            console.log(pointer);
+            if (this.pointer == jugador1){
+                chargeJ1();
+            } else {
+                console.log("Hola");
+                chargeJ2();
+            }
+           // game.physics.enable(arrow, Phaser.Physics.ARCADE);
             ball.body.moves = false;
             ball.body.velocity.setTo(0, 0);
             ball.body.allowGravity = true;
@@ -159,6 +170,7 @@ window.onload = function(){
             // Dependiendo de dónde clickemos, generamos el proyectil en uno u otro sprite
             if (pointer == jugador1){
                 ball = game.add.sprite(jugador1.x, jugador1.y, 'ball');
+                //fireJ1();
             } else {
                 ball = game.add.sprite(jugador2.x, jugador2.y, 'ball');
             }
@@ -182,8 +194,9 @@ window.onload = function(){
     
     
         //////////////////////////////////////////////////////
-        // Sistema de control de spritesheets j1:
-    
+        // ///////Sistema de control de spritesheets j1://///
+        /////////////////////////////////////////////////////
+
         function chargeJ1(){
             jugador1.loadTexture('j1Cargando', 0);
             jugador1.animations.add('charging');
@@ -222,30 +235,27 @@ window.onload = function(){
         }
     
         ///////////////////////////////////////////////////////
-        //////Gestión vida y puntuación para el Jugador1///////
+        //////Gestión vida y puntuación///////////////1///////
         ///////////////////////////////////////////////////////
 
 
         function colisionPelotaJ1(player, ball) {
-            var porcentaje = 100;
-            barraJ1.setPercent(porcentaje - 20);
-            console.log("Hola2");
+            vidaJ1 -= 20;
+            barraJ1.setPercent(vidaJ1);
         }
 
         function colisionPelotaJ2(player, ball) {
-            var porcentaje = 100;
-            barraJ2.setPercent(porcentaje - 20);
-            console.log("Hola1");
-
+            vidaJ2 -= 20;
+            barraJ2.setPercent(vidaJ2);
         }
     
         function update() {
             game.physics.arcade.overlap(jugador1, ball, colisionPelotaJ1, null, this);
             game.physics.arcade.overlap(jugador2, ball, colisionPelotaJ2, null, this);
             //Variable para detectar colisión jugador-solidos
-            var hitPlatform = game.physics.arcade.collide(jugador1, solidos);
+            var hitPlatform = game.physics.arcade.collide(player, solidos);
             //Variable para detectar colisión pelota-jugador:
-            var hitJugador = game.physics.arcade.collide(jugador1, ball);
+            var hitJugador = game.physics.arcade.collide(player, ball);
             //Variable para detectar colisión pelota-solidos:
             var hitBall = game.physics.arcade.collide(ball, solidos);
     
@@ -253,6 +263,7 @@ window.onload = function(){
             // Control de eventos cuando se clica sobre el jugador
             if (catchFlag == true) {
                 
+                /*
                 // Control del spritesheet del jugador1
                 game.input.onDown.add(chargeJ1, this);
                 game.input.onUp.add(fireJ1, this);
@@ -263,7 +274,7 @@ window.onload = function(){
                 game.input.onUp.add(fireJ2, this);
                 game.input.onUp.add(idleJ2, this);
 
-
+*/
                 //  Track the ball sprite to the mouse  
                 analog.x = game.input.activePointer.worldX;   
                 analog.y = game.input.activePointer.worldY;
@@ -280,19 +291,39 @@ window.onload = function(){
                 launchVelocity = analog.height - 10;
             }
 
+            //Cuando colisiona la pelota con el jugador, o cuando la pelota choca con el suelo.
             if (hitJugador || hitBall){
+                hit = true;
+                elapsed = 0;
                 ball.kill();
-                bolaON = false;
-                turn = !turn;
+                elapsed = game.time.totalElapsedSeconds()
+                console.log(elapsed)
+            }
+            //Cuando ha habido colisión, se llama a este método para esperar 0.8 segundos antes de cambiar la cámara
+            if (hit){ 
+                diftime = game.time.totalElapsedSeconds() - elapsed;
+                console.log(diftime);
+                if (diftime >= 0.8){
+                    hit = false;
+                    bolaON = false;
+                    turn = !turn;
+                }
             }
     
             //Definimos las condiciones que harán que la cámara siga al personaje/pelota
             if (bolaON == true){
+
                 game.camera.follow(ball);
             }else if(bolaON == false && turn == true) {
+
                 game.camera.follow(jugador1);
             } else if(bolaON == false && turn == false) {
+
                 game.camera.follow(jugador2);                
             }
+
+            //Comprobaciones por si se ha acabado el juego
+            if (vidaJ1 == 0 || vidaJ2 == 0){ /*Finalizamos el juego*/}
+    
         }
     }
