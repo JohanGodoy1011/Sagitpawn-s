@@ -48,11 +48,17 @@ window.onload = function(){
         var lastBulletShotAt;
         var bitmap;
 
+        // Variables del mapa
+        var map;
+        var layer;    
 
         function preload() {
-    
-            game.load.image('fondo1', 'Imagenes/Background2.png');                                  //Cargamos la primera imagen de fondo.
-            game.load.image('suelo', 'Imagenes/suelo1.png');                                        //Cargamos el suelo.
+
+            game.load.tilemap('MyTilemap', 'Map/mapafinal.csv', null, Phaser.Tilemap.CSV);
+            game.load.image('tiles', 'Map/tileset.png');
+            game.load.image('back', 'Imagenes/Background2.png');
+                                              //Cargamos la primera imagen de fondo.
+            //game.load.image('suelo', 'Imagenes/suelo1.png');                                        //Cargamos el suelo.
     
             game.load.spritesheet('jugador1', 'Sprites/lanzer.png', 55, 75, 20);                    //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
             game.load.spritesheet('j1Cargando', 'Sprites/lanzerCharging.png',55, 75, 8);            //Cargamos la animación del j1 para cargar 'charging'
@@ -69,8 +75,8 @@ window.onload = function(){
             ////////////////////////
             // Disparos versión 2
             game.load.image('bullet', 'bullet.png');
-            game.load.image('ground', 'ground.png');
-            game.load.image('explosion', 'explosion.png', 128, 128);
+            //game.load.image('ground', 'ground.png');
+            //game.load.image('explosion', 'explosion.png', 128, 128);
 
     
         }
@@ -88,15 +94,22 @@ window.onload = function(){
             //////////////////////////////////////////
 
             // Fondo
-            game.add.sprite(0, 0, 'fondo1');                        
+            game.add.sprite(0, -13, 'back');                      
             // Suelo
-            solidos = game.add.group ();                            //Creamos el grupo de solidos
-            solidos.enableBody = true;                              //Habilitamos las físicas para el grupo de sólidos
+            //solidos = game.add.group ();                            //Creamos el grupo de solidos
+            //solidos.enableBody = true;                              //Habilitamos las físicas para el grupo de sólidos
             // Generamos el suelo(perteneciente a sólidos)
-            suelo = solidos.create(0, game.world.height - 80, 'suelo');
+            //suelo = solidos.create(0, game.world.height - 80, 'suelo');
             //suelo.scale.setTo(1, 1);                               //Escalamos la plataforma, (no se como funciona xd)
-            suelo.body.immovable = true;                             //Para que la plataforma no se caiga al colisionar con ella
+            //suelo.body.immovable = true;                             //Para que la plataforma no se caiga al colisionar con ella
+            
+            map = game.add.tilemap('MyTilemap', 32, 32, 8, 8);
+            map.addTilesetImage('tiles');
     
+            layer = map.createLayer(0);
+
+            map.setCollisionBetween(0,63);
+
             /*
             //Vamos con la bola:
             analog = game.add.sprite(400, 350, 'analog');
@@ -118,8 +131,12 @@ window.onload = function(){
             player = game.add.group();
             player.enableBody = true;
             
-            jugador1 = player.create(200, 680, 'jugador1');
-            jugador2 = player.create(800, 680, 'jugador2');
+            
+            jugador1 = player.create(200, 300, 'jugador1');
+            jugador2 = player.create(800, 300, 'jugador2');
+
+            jugador1.body.gravity.y=300;
+            jugador2.body.gravity.y=300;
 
             jugador1.animations.add('idle');                
             jugador1.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 1 y le damos nombre a la animación como idle.
@@ -350,12 +367,17 @@ window.onload = function(){
             drawTraj();
 
             //Variable para detectar colisión jugador-solidos
-            var hitPlatform = game.physics.arcade.collide(player, solidos);
+            //var hitPlatform = game.physics.arcade.collide(player, solidos);
             //Variable para detectar colisión pelota-jugador:
             //var hitJugador = game.physics.arcade.collide(player, ball);
             //Variable para detectar colisión pelota-solidos:
             //var hitBall = game.physics.arcade.collide(ball, solidos);
-
+            
+            game.physics.arcade.collide(player, layer, /*function(player){
+            player.body.gravity.y=0;}*/);
+            game.physics.arcade.collide(bulletPool, layer, function(bullet){
+                bullet.kill();});
+            
             game.physics.arcade.collide(bulletPool, function(bullet) {
                 // Create an explosion
                 //this.getExplosion(bullet.x, bullet.y);
