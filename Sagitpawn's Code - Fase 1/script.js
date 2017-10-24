@@ -23,8 +23,9 @@ window.onload = function(){
         var hit = false;
         var diftime = 0;
         var elapsed = 0;
+        var whoColision = 1;
 
-        // Sistema de disparos versión 2.1
+        // Sistema de disparos
         var gun;
         var SHOT_DELAY;
         var BULLET_SPEED;
@@ -68,7 +69,7 @@ window.onload = function(){
             game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
             
             //////////////////////////////////////////
-            // Agregación de elementos de la escena:
+            ////// Elementos de la escena:///////////
             //////////////////////////////////////////
 
             // Fondo
@@ -82,7 +83,7 @@ window.onload = function(){
             map.setCollisionBetween(0,63);
            
             ///////////////////////////////
-            // Gestión de jugadores:
+            // Gestión de jugadores:///////
             ///////////////////////////////
 
             // Creamos el grupo de jugadores. Activamos body para colisiones.
@@ -128,12 +129,11 @@ window.onload = function(){
 
             //////////////////////////////////////////////////
             ///////////////// Barra de Vida///////////////////
-            //////////////////////////////////////////////////
+            //////////////////////////////////////////////////  https://github.com/bmarwane/phaser.healthbar/blob/master/README.md
             
-            //Página tutorial de la barra https://github.com/bmarwane/phaser.healthbar/blob/master/README.md
-            
+            //Configuración para la barra
             barConfig = {width: 70,
-                        height: 15,};   //Configuración para la barra
+                        height: 15,};  
 
             barraJ1 = new HealthBar(this.game, barConfig);
             barraJ1.setPosition(jugador1.x + 20, jugador1.y - 10);
@@ -247,8 +247,10 @@ window.onload = function(){
 
             // Cambio de sprites
             if (pointer == jugador1){
+                whoColision = 1;
                 idleJ1();
             } else if(pointer == jugador2){
+                whoColision = 2;
                 idleJ2();
             }
 
@@ -261,12 +263,16 @@ window.onload = function(){
             bitmap.context.clearRect(0, 0, game.width, game.height);
         }
 
+
+
         function update(){
-            
+           
+            console.log(whoColision);
             // Colisiones jugador con el mapa
             game.physics.arcade.collide(player, layer);
             // Colisiones bullet con el mapa
             var hitGround = game.physics.arcade.collide(bulletPool, layer);
+            var hitJugador = game.physics.arcade.collide(player, bullet);
 
             bulletPool.forEachAlive(function(bullet) {
                 bullet.rotation = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x);
@@ -277,29 +283,24 @@ window.onload = function(){
                 drawTraj();     
                 if (bullet != undefined){
                     //Variable para detectar colisión pelota-jugador:
-                    console.log("Angerfist - Incoming");
-                    var hitJugador = game.physics.arcade.collide(player, bullet);
+                    //console.log("Angerfist - Incoming");
                     game.physics.arcade.overlap(jugador1, bullet, colisionPelotaJ1, null, this);
-                    game.physics.arcade.overlap(jugador2, bullet, colisionPelotaJ2, null, this);            
+                    game.physics.arcade.overlap(jugador2, bullet, colisionPelotaJ2, null, this); 
                 }
             } 
-
             if (hitJugador || hitGround) {
                 hit = true;
                 elapsed = 0;
                 bullet.kill();
                 elapsed = game.time.totalElapsedSeconds();
-                console.log(elapsed)
             }
+
             //Cuando ha habido colisión, se llama a este método para esperar 0.8 segundos antes de cambiar la cámara
             if (hit){ 
                 diftime = game.time.totalElapsedSeconds() - elapsed;
-                console.log(diftime);
                 if (diftime >= 0.8){
-                    console.log("TroyBoi - On My Own (feat. Nefera)");
                     hit = false;
                     bolaON = false;
-                    turn = !turn;
                 }
             }
 
@@ -313,7 +314,9 @@ window.onload = function(){
 
 
             //Comprobaciones por si se ha acabado el juego
-            if (vidaJ1 == 0 || vidaJ2 == 0){ /*Finalizamos el juego*/}
+            if (vidaJ1 == 0 || vidaJ2 == 0){ 
+                //Saltamos
+            }
 
         }
 
@@ -338,8 +341,6 @@ window.onload = function(){
             }
             bullet.kill();
         }*/
-        
-        ////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // Con el parámetro pointer sabemos donde clicamos y alteramos el spritesheet
