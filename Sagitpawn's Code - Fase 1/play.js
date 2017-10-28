@@ -1,8 +1,9 @@
 var playState = {
 
-    //Declaración de varibles globales
+    //Declaración de variables globales
     bolaON: false,
     turn: true,
+    luzbool:false,
     
     player: undefined,
     jugador1: undefined,
@@ -34,6 +35,8 @@ var playState = {
     // Esta variable timer controla los cambios de cámara  (al llamar a la función camera())
     timer: undefined,
 
+    //Luciernagas
+    luz:undefined,
 
 
     //Función create
@@ -127,7 +130,7 @@ var playState = {
             }
         },
 
-        game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
+        game.world.setBounds(0, 0, 2334, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
         
         //////////////////////////////////////////
         ////// Elementos de la escena:///////////
@@ -179,6 +182,15 @@ var playState = {
         playState.jugador2.animations.add('idle');                
         playState.jugador2.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 2 y le damos nombre a la animación como idle.
 
+        // Animacion de luciernagas
+
+        playState.luz = game.add.sprite(850, 285, 'luz');
+        playState.luz.scale.setTo(0.75, 0.75);
+        game.physics.arcade.enable(playState.luz);
+        playState.luz.animations.add('bucle');
+        playState.luz.animations.play('bucle', 3, true);
+        playState.luz.alpha = 0;
+       // playState.luz.body.velocity.x = 30;
 
         // Gestión de trayectoria y disparos
         playState.bitmap = game.add.bitmapData(game.width, game.height);
@@ -448,6 +460,36 @@ var playState = {
             hit = false;
             this.timer.stop();
         }
+
+        /*
+        if (playState.luz.body.x === 300){
+            playState.luz.body.velocity.x = -30;
+            volver();
+        }
+
+        if(playState.luz.body.x === -300){
+            playState.luz.body.velocity.x = 30;
+        }
+
+        function volver(){
+            game.time.events.add(800, function() {      
+                game.add.tween(playState.luz).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
+            }, this);
+        }*/
+        if(this.luzbool === false){
+            game.time.events.add(15000, function() {
+                this.luzbool = true;      
+                game.add.tween(playState.luz).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true);
+            }, this);
+        }else{
+            game.time.events.add(15000, function() {    
+                this.luzbool = false;  
+                game.add.tween(playState.luz).to({alpha: 0}, 200, Phaser.Easing.Linear.None, true);
+                
+            }, this);
+        }
+
+        
 
 
         if (playState.bolaON == true){

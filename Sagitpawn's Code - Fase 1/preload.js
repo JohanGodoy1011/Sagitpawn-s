@@ -25,6 +25,9 @@ var loadState = {
         // Imágenes del borde del mapa
         game.load.image('sides', 'Imagenes/worldLimit.png'); 
         game.load.image('sky', 'Imagenes/topLimit.png'); 
+
+        //Luciernagas
+        game.load.spritesheet('luz', 'Sprites/luz.png', 300, 300, 5);
         
 
     },
