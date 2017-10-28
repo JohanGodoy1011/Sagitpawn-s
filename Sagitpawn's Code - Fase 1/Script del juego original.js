@@ -65,7 +65,6 @@ window.onload = function(){
     
         function create() {
            
-            game.physics.startSystem(Phaser.Physics.ARCADE);
             game.world.setBounds(0, 0, 2347, 833);                  //Delimitar los bordes del mapa para que funcione el movimiento de camara
             
             //////////////////////////////////////////
