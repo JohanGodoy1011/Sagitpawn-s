@@ -21,6 +21,10 @@ var playState = {
     vidaJ2:100,
     barraJ2:undefined,
     layer:undefined,
+    h: 1100,
+    w: 700,
+
+    cursor: undefined,
 
     limit: undefined,
     left: undefined,
@@ -224,6 +228,81 @@ var playState = {
         playState.barraJ2.setPosition(playState.jugador2.x + 20, playState.jugador2.y - 10);
 
         
+        //////////////////////////////////////////////////////
+        //////////////// Menu de Pause ///////////////////////
+        //////////////////////////////////////////////////////
+
+        function unpause(event){
+            if(game.paused){
+                //Coordenadas del .png del menu
+                var x1 = playState.w/2 - 200, x2 = playState.w/2 + 200,
+                    y1 = playState.h/2 - 210, y2 = playState.h/2 + 210;
+                    console.log("x1 " + x1 + " x2 " + x2);
+                    console.log("x2 " + y1 + " y2 " + y2);
+    
+                    console.log("Event.x " + event.x + " x1 " + x1 + "\n Event.x " + event.x + " x2 " + x2 + " \n Event.y " + event.y + " y " + y1  + "\n Event.y " + event.y + " y2 " + y2);
+                // Check if the click was inside the menu
+                if(true){//event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
+    
+                    //Coordenadas locales al menú
+                    var x = event.x - x1,
+                        y = event.y - y1;
+                    
+                        console.log("Xlocal " + x + "\n Ylocal " + y);
+    
+                    //Calculamos la elección
+                    var choise = 3*Math.floor(y / 70);
+                    console.log(choise);
+                    if (choise == -6){
+                        menu.destroy();
+                        game.paused = false;
+                    }else if (choise == -3){
+                        console.log("Hola entro en Continuar");                        
+                    }
+                    else if(choise ==  0){
+                        menu.destroy();
+                    }
+                }
+            }
+        };
+
+        
+
+        pause_label = game.add.text(1020, 150, 'Pause', { font: '22px Arial', fill: 'white' });
+        pause_label.inputEnabled = true;
+
+        pause_label.events.onInputUp.add(function () {
+            game.paused = true;
+    
+            //Añadimos menú
+            menu = game.add.sprite(1100/2, 700/2, 'menu');
+            menu.anchor.setTo(0.5, 0);
+        });
+    
+        //Evento de fullscreen
+        game.input.onDown.add(unpause, self);
+
+
+        /////////////////////////////////////////////
+        //////////Full Screen ///////////////////////
+        /////////////////////////////////////////////
+
+        gofull = function() {
+
+            console.log("reescalando");
+            if (game.scale.isFullScreen)
+            {
+                game.scale.stopFullScreen();
+            }
+            else
+            {
+                game.scale.startFullScreen(false);
+            }
+
+        },
+        cursors = game.input.keyboard.addKey(Phaser.Keyboard.F);
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        cursors.onDown.add(gofull, this);
     },
 
 

@@ -15,6 +15,9 @@ var loadState = {
         
         game.load.bitmapFont('menu', 'Font/font.png', 'Font/font.fnt');
 
+        //Imagenes para el menu
+        game.load.image('menu', 'Imagenes/number-buttons-90x90.png', 270, 180);
+
         // Disparos versión 2
         game.load.image('bullet', 'bullet.png');
         game.load.image('shooter', 'Sprites/disparador.png'); 
