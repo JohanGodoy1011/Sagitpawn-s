@@ -49,6 +49,5 @@ var menuState = {
         var popup = window.open(location, '_self', '');
         popup.close();
         */
-        open(location, '_self').close();
     },
 }
