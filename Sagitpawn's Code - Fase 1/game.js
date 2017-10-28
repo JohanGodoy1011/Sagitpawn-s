@@ -6,3 +6,5 @@ game.state.add('menu', menuState);
 game.state.add('play', playState);
 
 game.state.start('boot');
+
+//http://perplexingtech.weebly.com/game-dev-blog/using-states-in-phaserjs-javascript-game-developement

@@ -247,8 +247,8 @@ var playState = {
         function unpause(event){
             if(game.paused){
                 //Coordenadas del .png del menu
-                var x1 = playState.w/2 - 200, x2 = playState.w/2 + 200,
-                    y1 = playState.h/2 - 210, y2 = playState.h/2 + 210;
+                var x1 = game.camera.x + (game.width/2 - 100), x2 = game.camera.x + (game.width/2 + 100),
+                    y1 = game.camera.y + (game.height/2 - 105), y2 = game.camera.y + (game.height/2 + 105);
                     console.log("x1 " + x1 + " x2 " + x2);
                     console.log("x2 " + y1 + " y2 " + y2);
     
@@ -268,27 +268,46 @@ var playState = {
                     if (choise == -6){
                         menu.destroy();
                         game.paused = false;
-                    }else if (choise == -3){
-                        console.log("Hola entro en Continuar");                        
+                    }
+                    else if (choise == -3){
+                        //cargar state anterior, el menu
+                        console.log("Hola entro en Continuar");
+                        menu.destroy();
+                        game.paused = false;
+                        //game.add.sprite(0, 0, 'menubg');                //Añadimos el texto   
+                        game.state.remove('menu');
+                        game.state.remove('play');
+                        game.state.add('menu2', menuState2);
+                        game.state.add('play', playState);
+                        
+                        game.state.start('menu2');                   
                     }
                     else if(choise ==  0){
+                        //cerrrar pestaña
                         menu.destroy();
+                        game.destroy();
                     }
                 }
             }
         };
 
         
-
-        pause_label = game.add.text(1020, 150, 'Pause', { font: '22px Arial', fill: 'white' });
+        //Ajustar camara
+        pause_label = game.add.text(1020, 10, 'Pausa', { font: '22px Arial', fill: 'white' });
+        pause_label.fixedToCamera = true;
         pause_label.inputEnabled = true;
 
         pause_label.events.onInputUp.add(function () {
-            game.paused = true;
-    
             //Añadimos menú
-            menu = game.add.sprite(1100/2, 700/2, 'menu');
-            menu.anchor.setTo(0.5, 0);
+
+            //Poner en funcion de camara
+            //menu = game.add.sprite(((game.camera.x + game.camera.width) / 2), ((game.camera.y + game.camera.height) / 2), 'menu');
+            //menu = game.add.sprite(((game.camera.x /*+ game.camera.width*/) / 2), ((game.camera.y /*+ game.camera.height*/) / 2), 'menu');
+            menu = game.add.sprite(game.camera.x + (game.width/2 - 100), game.camera.y + (game.height/2 - 105), 'menu');
+            //menu = game.add.sprite(game.world.centerX, game.world.centerY, 'menu');
+            menu.fixedToCamera = true;
+            //menu.anchor.setTo(0.5, 0);
+            game.paused = true;
         });
     
         //Evento de fullscreen

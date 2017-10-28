@@ -1,11 +1,11 @@
 //@grant window.close
 
-var menuState = {
+var menuState2 = {
     create: function (){
 
         game.add.sprite(0, 0, 'menubg');                //Añadimos el texto 
 
-        var texto = game.add.bitmapText(game.world.centerX, 140, 'menu', 'Sagitpawns', 100);
+        var texto = game.add.bitmapText(game.world.centerX - 615, 140, 'menu', 'Sagitpawns', 100);
         
         texto.anchor.set(0.5);
 
@@ -14,7 +14,7 @@ var menuState = {
         
         var optionStyle = { font: '40pt TheMinion', fill: 'red', align: 'left' };           //Estilo para los 'botones'
         //Creamos textos que funcionarán como botones
-        var txt = game.add.text(game.world.centerX, 300, 'Jugar', optionStyle);
+        var txt = game.add.text(game.world.centerX - 615, 300, 'Jugar', optionStyle);
         txt.anchor.set(0.5);
         txt.inputEnabled = true;                            //Activamos el input
         txt.events.onInputOver.add(function (target) {      //Cuando pasamos el ratón por encima
@@ -25,7 +25,7 @@ var menuState = {
         });
         txt.events.onInputDown.add(this.start, this);       //Llamamos a la función start(), cuando clickamos en el texto
 
-        var txt2 = game.add.text(game.world.centerX, 400, 'Salir', optionStyle);
+        var txt2 = game.add.text(game.world.centerX - 615, 400, 'Salir', optionStyle);
         txt2.anchor.set(0.5);
         txt2.inputEnabled = true;
         txt2.events.onInputOver.add(function (target) {
@@ -39,6 +39,8 @@ var menuState = {
     },
 
     start: function(){
+        game.state.remove('play');
+        game.state.add('play', playState);
         game.state.start('play');
     },
 
@@ -49,6 +51,6 @@ var menuState = {
         var popup = window.open(location, '_self', '');
         popup.close();
         */
-        open(location, '_self').close();
+        //open(location, '_self').close();
     },
 }
