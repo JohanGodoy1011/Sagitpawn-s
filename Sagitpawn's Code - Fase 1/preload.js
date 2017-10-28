@@ -19,6 +19,11 @@ var loadState = {
         game.load.image('bullet', 'bullet.png');
         game.load.image('shooter', 'Sprites/disparador.png'); 
 
+        // Imágenes del borde del mapa
+        game.load.image('sides', 'Imagenes/worldLimit.png'); 
+        game.load.image('sky', 'Imagenes/topLimit.png'); 
+        
+
     },
 
     create: function(){
