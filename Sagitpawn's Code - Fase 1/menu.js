@@ -2,12 +2,8 @@
 
 var menuState = {
 
-<<<<<<< HEAD
     sonidoini:undefined,
     boton: undefined,
-=======
-    cursors: undefined,
->>>>>>> 8c1269020a04661bdc920e9e15af895ea548977b
 
     create: function (){
 
