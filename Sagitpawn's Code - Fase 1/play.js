@@ -83,6 +83,7 @@ var playState = {
             }
 
             playState.bolaON = true;
+            playState.gun.kill();
             
         },
 
@@ -93,6 +94,8 @@ var playState = {
             
             // Creamos al cargar un sprite transparente donde clicamos, al mover el ratón el ángulo respecto este sprite nos dará la dirección de la bala
             playState.gun = game.add.sprite(pointer.x, pointer.y, 'shooter');
+            playState.gun.scale.setTo(-1,-1);
+            playState.gun.anchor.setTo(0.1,0.5);
 
             // drawTraj() no operativo
             playState.bitmap = game.add.bitmapData(game.width, game.height);

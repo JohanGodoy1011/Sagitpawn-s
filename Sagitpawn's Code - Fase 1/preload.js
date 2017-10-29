@@ -19,8 +19,8 @@ var loadState = {
         game.load.image('menu', 'Imagenes/number-buttons-90x90.png', 270, 180);
 
         // Disparos versión 2
-        game.load.image('bullet', 'Sprites/bullet.png');
-        game.load.image('shooter', 'Sprites/disparador.png'); 
+        game.load.image('bullet', 'Sprites/spear.png');
+        game.load.image('shooter', 'Sprites/disparador1.png'); 
 
         // Imágenes del borde del mapa
         game.load.image('sides', 'Imagenes/worldLimit.png'); 
