@@ -49,7 +49,6 @@ var menuState2 = {
 
         gofull = function() {
             
-            console.log("reescalando");
             if (game.scale.isFullScreen)
             {
                 game.scale.stopFullScreen();

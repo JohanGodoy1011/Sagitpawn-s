@@ -100,14 +100,6 @@ var playState = {
             
         },
 
-        /*
-        playState.musica = game.add.audio('musica');
-        playState.musica.volume = 0.25;
-        
-        playState.musica.play();
-        
-        */
-
 
         charge = function(pointer){
             
@@ -167,7 +159,6 @@ var playState = {
         
         
 
-
         ///////////////////////////////
         // Gestión de jugadores:///////
         ///////////////////////////////
@@ -212,9 +203,6 @@ var playState = {
         playState.luz1.animations.play('bucle1', 3, true);
 
 
-
-       // playState.luz.body.velocity.x = 30;
-
         // Gestión de trayectoria 
         playState.bitmap = game.add.bitmapData(game.width, game.height);
 
@@ -225,12 +213,9 @@ var playState = {
         playState.bulletPool.enableBody = true;
 
         playState.bullet = playState.bulletPool.create(playState.jugador1.x, playState.jugador1.y, 'bullet');
-        //Set its pivot point to the center of the bullet
         playState.bullet.anchor.setTo(0.5, 0.5);
-        // Set its initial state to "dead".
         playState.bullet.kill();
 
-        // bullet2
         playState.bullet2 = playState.bulletPool.create(playState.jugador2.x, playState.jugador2.y, 'bullet');
         playState.bullet2.anchor.setTo(0.5, 0.5);
         playState.bullet2.kill();
@@ -240,18 +225,14 @@ var playState = {
         // Enable input para ambos jugadores
         playState.jugador1.inputEnabled = true;
         playState.jugador1.events.onInputDown.add(charge);
-        //jugador1.events.onInputDown.add(drawTraj);                //Hay que llamrlo en update de alguna forma
         playState.jugador1.events.onInputUp.add(shootBullet);         
         playState.jugador1.events.onInputDown.add(setSprite);               //Cambia el spritesheet
-        //jugador1.events.onInputUp.add(clean);
 
 
         playState.jugador2.inputEnabled = true;
         playState.jugador2.events.onInputDown.add(charge);
-        //jugador2.events.onDragStart.add(drawTraj);                  //Hay que llamarlo en update de alguna forma
         playState.jugador2.events.onInputUp.add(shootBullet);
         playState.jugador2.events.onInputDown.add(setSprite); 
-        //jugador2.events.onInputUp.add(clean);
 
         // Comenzamos siguiendo las acciones del jugador 1
         game.camera.follow(playState.jugador1);
@@ -259,7 +240,7 @@ var playState = {
 
         //////////////////////////////////////////////////
         ///////////////// Barra de Vida///////////////////
-        //////////////////////////////////////////////////  https://github.com/bmarwane/phaser.healthbar/blob/master/README.md
+        //////////////////////////////////////////////////  
         
         //Configuración para la barra
         barConfig = {width: 70,
@@ -279,29 +260,23 @@ var playState = {
                 //Coordenadas del .png del menu
                 var x1 = game.camera.x + (game.width/2 - 100), x2 = game.camera.x + (game.width/2 + 100),
                     y1 = game.camera.y + (game.height/2 - 105), y2 = game.camera.y + (game.height/2 + 105);
-                    console.log("x1 " + x1 + " x2 " + x2);
-                    console.log("x2 " + y1 + " y2 " + y2);
-    
-                    console.log("Event.x " + event.x + " x1 " + x1 + "\n Event.x " + event.x + " x2 " + x2 + " \n Event.y " + event.y + " y " + y1  + "\n Event.y " + event.y + " y2 " + y2);
-                // Check if the click was inside the menu
-                if(true){//event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
-    
+            
+                //Checkeamos si está dentro del cuadrado
+                if(true){
+
                     //Coordenadas locales al menú
                     var x = event.x - x1,
                         y = event.y - y1;
-                    
-                        console.log("Xlocal " + x + "\n Ylocal " + y);
-    
+
                     //Calculamos la elección
                     var choise = 3*Math.floor(y / 70);
-                    console.log(choise);
                     if (choise == -6){
                         playState.boton.play();
                         menu.destroy();
                         game.paused = false;
                     }
                     else if (choise == -3){
-                        //cargar state anterior, el menu
+                        //Cargar state anterior, el menu
                         playState.boton.play();
                         playState.musica.pause();
                         menu.destroy();
@@ -331,12 +306,8 @@ var playState = {
             //Añadimos menú
             playState.boton.play();    
             //Poner en funcion de camara
-            //menu = game.add.sprite(((game.camera.x + game.camera.width) / 2), ((game.camera.y + game.camera.height) / 2), 'menu');
-            //menu = game.add.sprite(((game.camera.x /*+ game.camera.width*/) / 2), ((game.camera.y /*+ game.camera.height*/) / 2), 'menu');
             menu = game.add.sprite(game.camera.x + (game.width/2 - 100), game.camera.y + (game.height/2 - 105), 'menu');
-            //menu = game.add.sprite(game.world.centerX, game.world.centerY, 'menu');
             menu.fixedToCamera = true;
-            //menu.anchor.setTo(0.5, 0);
             game.paused = true;
         });
     
@@ -350,7 +321,7 @@ var playState = {
 
         gofull = function() {
 
-            console.log("reescalando");
+
             if (game.scale.isFullScreen)
             {
                 game.scale.stopFullScreen();
@@ -412,7 +383,7 @@ var playState = {
 
             playState.bitmap.context.clearRect(playState.jugador1.x, playState.jugador1.y, game.width, game.height);
             playState.bitmap.context.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            var MARCH_SPEED = 40; // Smaller is faster
+            var MARCH_SPEED = 40; 
             timeOffset = timeOffset + 1 || 0;
             timeOffset = timeOffset % MARCH_SPEED;
 
@@ -454,13 +425,11 @@ var playState = {
 
         if (playState.gun != undefined){
             playState.gun.rotation = game.physics.arcade.angleToPointer(playState.gun);
-            //console.log(playState.gun.rotation) + " porba    ";
             drawTraj();     
         } 
 
 
         if (playState.turn == false && hitJugador1) {
-            console.log("joder");
             playState.vidaJ1 -= 20;
             playState.barraJ1.setPercent(playState.vidaJ1);
             playState.bullet.kill();
