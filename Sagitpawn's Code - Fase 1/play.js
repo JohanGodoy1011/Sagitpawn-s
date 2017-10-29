@@ -19,9 +19,9 @@ var playState = {
     bulletPool: undefined,
     
     
-    vidaJ1: 100,
+    vidaJ1: 20,
     barraJ1:undefined,
-    vidaJ2:100,
+    vidaJ2: 20,
     barraJ2:undefined,
     layer:undefined,
     h: 1100,
@@ -157,9 +157,11 @@ var playState = {
         playState.player = game.add.group();
         playState.player.enableBody = true;
         
-        playState.jugador1 = playState.player.create(220, 620, 'jugador1');
+        playState.jugador1 = playState.player.create(game.rnd.integerInRange(100, 550), 620, 'jugador1');
         playState.jugador1.anchor.setTo(0.5, 0.5); 
-        playState.jugador2 = playState.player.create(2050, 620, 'jugador2');
+        var posibles = [2050, 1800, 1770, 2190, 2250, 1900, 1850];
+        var rnd = game.rnd.integerInRange(0,7);
+        playState.jugador2 = playState.player.create(posibles[rnd], 620, 'jugador2');
         playState.jugador2.anchor.setTo(0.5, 0.5); 
         // De momento no queremos que se muevan al colisionar con la bala
         playState.player.setAll('body.immovable', true);
@@ -234,10 +236,8 @@ var playState = {
                     height: 15,};  
 
         playState.barraJ1 = new HealthBar(game, barConfig);
-        playState.barraJ1.setPosition(playState.jugador1.x + 20, playState.jugador1.y - 10);
-
         playState.barraJ2 = new HealthBar(game, barConfig);
-        playState.barraJ2.setPosition(playState.jugador2.x + 20, playState.jugador2.y - 10);
+    
 
         
         //////////////////////////////////////////////////////
@@ -271,10 +271,8 @@ var playState = {
                     }
                     else if (choise == -3){
                         //cargar state anterior, el menu
-                        console.log("Hola entro en Continuar");
                         menu.destroy();
                         game.paused = false;
-                        //game.add.sprite(0, 0, 'menubg');                //Añadimos el texto   
                         game.state.remove('menu');
                         game.state.remove('play');
                         game.state.add('menu2', menuState2);
@@ -343,6 +341,9 @@ var playState = {
         
         //Variables locales a update
         var timeOffset;
+        
+        playState.barraJ1.setPosition(playState.jugador1.x, playState.jugador1.y - 40);
+        playState.barraJ2.setPosition(playState.jugador2.x, playState.jugador2.y - 40);
         
 
         // Sistema spritesheets j1
@@ -461,22 +462,6 @@ var playState = {
             this.timer.stop();
         }
 
-        /*
-        if (playState.luz.body.x === 300){
-            playState.luz.body.velocity.x = -30;
-            volver();
-        }
-
-        if(playState.luz.body.x === -300){
-            playState.luz.body.velocity.x = 30;
-        }
-
-        function volver(){
-            game.time.events.add(800, function() {      
-                game.add.tween(playState.luz).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
-            }, this);
-        }*/
-
         if(this.luzbool === false){
             game.time.events.add(15000, function() {
                 this.luzbool = true;      
@@ -503,10 +488,25 @@ var playState = {
             game.camera.follow(playState.jugador2);                
         }
 
+        finish1 = function(){
+            this.timer.stop();
+            game.state.start('gameover2');
+        }
+
+        finish2 = function(){
+            this.timer.stop()
+            game.state.start('gameover1');
+        }
 
         //Comprobaciones por si se ha acabado el juego
-        if (playState.vidaJ1 == 0 || playState.vidaJ2 == 0){ 
-            //game.state.play(gameOver);
+        if (playState.vidaJ1 == 0){
+            this.timer.loop(500, finish1, this);
+            this.timer.start();
+            
+        }
+        if (playState.vidaJ2 == 0){ 
+            this.timer.loop(500, finish2, this); 
+            this.timer.start();           
         }
 
         

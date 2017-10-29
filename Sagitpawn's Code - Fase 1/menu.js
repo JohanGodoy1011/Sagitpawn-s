@@ -43,11 +43,6 @@ var menuState = {
     },
 
     close: function(){
-        //cerrar pestaña
         game.destroy();
-        /*
-        var popup = window.open(location, '_self', '');
-        popup.close();
-        */
     },
 }
