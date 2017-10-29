@@ -1,7 +1,13 @@
 var finishState1 = {
 
+    gameoversound1:undefined,
+
     create: function (){
-        
+
+        finishState1.gameoversound1 = game.add.audio('gameoversound');
+        finishState1.gameoversound1.volume = 1;
+        finishState1.gameoversound1.loop = false;
+        finishState1.gameoversound1.play();
         
         game.add.sprite(0, 0, 'go11');                //Añadimos el texto 
 
@@ -11,9 +17,8 @@ var finishState1 = {
         },
 
         start: function(){
-            //game.camera.follow(playState.jugador2);
+            this.gameoversound1.pause();
             playState.vidaJ2 = 20;
-            //game.camera.setPosition(200,620);
             game.state.remove('menu');
             game.state.remove('play');
             game.state.remove('gameover1');

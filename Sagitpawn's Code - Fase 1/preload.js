@@ -34,6 +34,13 @@ var loadState = {
 
         //Luciernagas
         game.load.spritesheet('luz', 'Sprites/luz.png', 300, 300, 5);
+
+        //Sonidos
+        game.load.audio('musica', 'Sonido/Musica.mp3');
+        game.load.audio('menuinisound', 'Sonido/MenuPrincipal.mp3');
+        game.load.audio('gameoversound', 'Sonido/GameOver.mp3');
+        game.load.audio('shoot', 'Sonido/Lanza.mp3');
+        game.load.audio('bot', 'Sonido/Boton.mp3');
         
     },
 

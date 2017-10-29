@@ -41,9 +41,20 @@ var playState = {
     //Luciernagas
     luz:undefined,
 
+    //Sonido
+    musica:undefined,
+    lanza: undefined,
+    boton: undefined,
+
 
     //Función create
     create: function () {
+
+        playState.musica = game.add.audio('musica');
+        playState.musica.loopFull(0.17);
+
+        playState.lanza = game.add.audio('shoot');
+        playState.boton = game.add.audio('bot');
 
         // Variables para controlar la vida de cada personaje
         var barConfig;
@@ -81,12 +92,19 @@ var playState = {
                 playState.bullet2.body.velocity.y = Math.sin(playState.bullet2.rotation) * -playState.BULLET_SPEED;
             }
 
+            playState.lanza.play();
             playState.bolaON = true;
             playState.gun.kill();
             
         },
 
-
+        /*
+        playState.musica = game.add.audio('musica');
+        playState.musica.volume = 0.25;
+        
+        playState.musica.play();
+        
+        */
 
 
         charge = function(pointer){
@@ -266,11 +284,14 @@ var playState = {
                     var choise = 3*Math.floor(y / 70);
                     console.log(choise);
                     if (choise == -6){
+                        playState.boton.play();
                         menu.destroy();
                         game.paused = false;
                     }
                     else if (choise == -3){
                         //cargar state anterior, el menu
+                        playState.boton.play();
+                        playState.musica.pause();
                         menu.destroy();
                         game.paused = false;
                         game.state.remove('menu');
@@ -279,6 +300,7 @@ var playState = {
                         game.state.start('menu2');                   
                     }
                     else if(choise ==  0){
+                        playState.boton.play();
                         //cerrrar pestaña
                         menu.destroy();
                         game.destroy();
@@ -295,7 +317,7 @@ var playState = {
 
         pause_label.events.onInputUp.add(function () {
             //Añadimos menú
-
+            playState.boton.play();    
             //Poner en funcion de camara
             //menu = game.add.sprite(((game.camera.x + game.camera.width) / 2), ((game.camera.y + game.camera.height) / 2), 'menu');
             //menu = game.add.sprite(((game.camera.x /*+ game.camera.width*/) / 2), ((game.camera.y /*+ game.camera.height*/) / 2), 'menu');
@@ -488,12 +510,14 @@ var playState = {
 
         finish1 = function(){
             this.timer.stop();
+            this.musica.pause();
             game.state.add('gameover2', finishState2);
             game.state.start('gameover2');
         }
 
         finish2 = function(){
             this.timer.stop();
+            this.musica.pause();
             game.state.add('gameover1', finishState1);
             game.state.start('gameover1');
         }

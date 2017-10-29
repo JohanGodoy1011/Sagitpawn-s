@@ -1,7 +1,17 @@
 //@grant window.close
 
 var menuState = {
+
+    sonidoini:undefined,
+    boton: undefined,
+
     create: function (){
+
+        menuState.sonidoini = game.add.audio('menuinisound');
+        menuState.sonidoini.volume = 1;
+        menuState.sonidoini.play();
+
+        menuState.boton = game.add.audio('bot');
 
         game.add.sprite(0, 0, 'menubg');                //Añadimos el texto 
 
@@ -39,9 +49,12 @@ var menuState = {
     },
 
     start: function(){
+        this.boton.play();
+        this.sonidoini.pause();
         game.state.add('play', playState);
         game.state.start('play');
     },
+    
 
     close: function(){
         game.destroy();
