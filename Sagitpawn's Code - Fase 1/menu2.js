@@ -69,6 +69,8 @@ var menuState2 = {
     start: function(){
         game.state.add('play', playState);
         game.state.start('play');
+        playState.bolaON = false;
+        playState.turn = true;
     },
 
     close: function(){

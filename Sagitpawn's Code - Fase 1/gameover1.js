@@ -19,6 +19,7 @@ var finishState1 = {
         start: function(){
             this.gameoversound1.pause();
             playState.vidaJ2 = 100;
+            playState.vidaJ1 = 100;
             game.state.remove('menu');
             game.state.remove('play');
             game.state.remove('gameover1');
