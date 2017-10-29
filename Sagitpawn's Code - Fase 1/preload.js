@@ -18,7 +18,7 @@ var loadState = {
         //Imagenes para el menu
         game.load.image('menu', 'Imagenes/number-buttons-90x90.png', 270, 180);
 
-        //Imagenes para el GameOver
+        //Imagenes Game Over
         game.load.image('go11', 'Imagenes/gameover11.png', 270, 180);
         game.load.image('go12', 'Imagenes/gameover12.png', 270, 180);
         game.load.image('go21', 'Imagenes/gameover21.png', 270, 180);
@@ -35,10 +35,10 @@ var loadState = {
         //Luciernagas
         game.load.spritesheet('luz', 'Sprites/luz.png', 300, 300, 5);
         
-
     },
 
     create: function(){
+        game.state.add('menu', menuState);
         game.state.start('menu');
     },
 

@@ -39,6 +39,7 @@ var menuState = {
     },
 
     start: function(){
+        game.state.add('play', playState);
         game.state.start('play');
     },
 

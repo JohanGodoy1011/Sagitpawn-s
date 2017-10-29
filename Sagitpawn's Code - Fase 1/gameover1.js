@@ -11,7 +11,14 @@ var finishState1 = {
         },
 
         start: function(){
-            //Moreno help me pls
+            //game.camera.follow(playState.jugador2);
+            playState.vidaJ2 = 20;
+            //game.camera.setPosition(200,620);
+            game.state.remove('menu');
+            game.state.remove('play');
+            game.state.remove('gameover1');
+            game.state.add('menu2', menuState2);
+            game.state.start('menu2');
         },
         
 
