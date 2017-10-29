@@ -80,7 +80,7 @@
     <ul>
       <li><i>Jugar:</i> Jugaremos una nueva partida.</li>
       <li><i>Salir:</i> Saldremos del juego.</li>
-      <li><i>About us:</i> Te lleva a nuestro repertorio de GitHub.</li> 
+      <li><i>About us:</i> Te lleva a nuestro repositorio de GitHub.</li> 
   </ul> 
   </ul></p>
   
@@ -91,6 +91,9 @@
   ![picture](https://i.imgur.com/Vqp9d5y.jpg)
 
   <p><ul><li><strong>Pantalla 2: </strong> Pantalla del juego en si, donde tendremos que conseguir golpear a nuestro enemigo, situado aleatoriamente al otro lado del escenario.</ul></li></p>
+  
+![picture](https://i.imgur.com/LvZehZQ.png)
+  
   <p><ul><li><strong>Pantalla 2.1: </strong> Menú de pausa con las opciones de "Continuar, Reiniciar y Salir", explicadas anteriormente.</ul></li></p>
   
 ![picture](https://i.imgur.com/yL56hUn.jpg)
