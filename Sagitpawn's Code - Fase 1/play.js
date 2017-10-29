@@ -11,10 +11,12 @@ var playState = {
 
     gun: undefined,
     bullet: undefined,
+    //Creamos una segunda bala para facilitar la gestión de pérdida de vida
+    bullet2: undefined,
+    
     bitmap: undefined,
-    GRAVITY: undefined,
     BULLET_SPEED:undefined,
-    bulletPool:undefined,
+    bulletPool: undefined,
     
     
     vidaJ1: 100,
@@ -31,6 +33,7 @@ var playState = {
     left: undefined,
     rigth: undefined, 
     top: undefined,
+    bottom: undefined,
 
     // Esta variable timer controla los cambios de cámara  (al llamar a la función camera())
     timer: undefined,
@@ -45,13 +48,9 @@ var playState = {
         // Variables para controlar la vida de cada personaje
         var barConfig;
 
-        // Sistema de disparos
-        var SHOT_DELAY;
-        //this.bulletPool;
-        var lastBulletShotAt;
-
-
+        // Variable para controlar el lapso de tiempo entre cambios de cámara
         this.timer = game.time.create(false);
+
 
         //Declaración de funciones
         shootBullet = function(pointer){
@@ -62,43 +61,30 @@ var playState = {
             if (playState.BULLET_SPEED >= max){playState.BULLET_SPEED = max;}
             if (playState.BULLET_SPEED <= min){playState.BULLET_SPEED = min;}
 
-
-            if (lastBulletShotAt === undefined) {
-                lastBulletShotAt = 0;
-            }
-            if (game.time.now - lastBulletShotAt < SHOT_DELAY) 
-                return;
-            lastBulletShotAt = game.time.now;
-
-            //bullet = bulletPool.getFirstDead();
-            if (playState.bullet === null || playState.bullet === undefined) 
-            return;
-            
-            playState.bullet.revive();
-            playState.bullet.checkWorldBounds = true;
-            playState.bullet.outOfBoundsKill = true; 
             playState.bullet.body.gravity.y = 980;
-
-            // Reasignamos la orientación de la bala en función del ángulo del sprite 'disparador'
-            playState.bullet.reset(playState.gun.x, playState.gun.y);
-            console.log(playState.gun.rotation + "Rotation shoot");
-            playState.bullet.rotation = playState.gun.rotation;
-            // Se carga el disparo en dirección contraria al desplazamiento del ratón
-            playState.bullet.body.velocity.x = Math.cos(playState.bullet.rotation) * -playState.BULLET_SPEED;
-            playState.bullet.body.velocity.y = Math.sin(playState.bullet.rotation) * -playState.BULLET_SPEED;
-
+            playState.bullet2.body.gravity.y = 980;
+            
             // Cambio de sprites
-            if (pointer == playState.jugador1){
+            if (pointer == playState.jugador1) {
                 idleJ1();
-            } else if(pointer == playState.jugador2){
+                // Reasignamos la orientación de la bala en función del ángulo del sprite 'disparador'
+                playState.bullet.reset(playState.gun.x, playState.gun.y);
+                playState.bullet.rotation = playState.gun.rotation;
+                // Se carga el disparo en dirección contraria al desplazamiento del ratón
+                playState.bullet.body.velocity.x = Math.cos(playState.bullet.rotation) * -playState.BULLET_SPEED;
+                playState.bullet.body.velocity.y = Math.sin(playState.bullet.rotation) * -playState.BULLET_SPEED;
+            } else if(pointer == playState.jugador2) {
                 idleJ2();
+                playState.bullet2.reset(playState.gun.x, playState.gun.y);
+                playState.bullet2.rotation = playState.gun.rotation;
+                // Se carga el disparo en dirección contraria al desplazamiento del ratón
+                playState.bullet2.body.velocity.x = Math.cos(playState.bullet2.rotation) * -playState.BULLET_SPEED;
+                playState.bullet2.body.velocity.y = Math.sin(playState.bullet2.rotation) * -playState.BULLET_SPEED;
             }
 
             playState.bolaON = true;
-
             
         },
-
 
 
 
@@ -107,14 +93,14 @@ var playState = {
             
             // Creamos al cargar un sprite transparente donde clicamos, al mover el ratón el ángulo respecto este sprite nos dará la dirección de la bala
             playState.gun = game.add.sprite(pointer.x, pointer.y, 'shooter');
-            SHOT_DELAY = 150;        // milliseconds podemos poner un delay tan grande como la trayectoria maxima
-            playState.GRAVITY = 980;           // pixels/second/second
 
-
+            // drawTraj() no operativo
             playState.bitmap = game.add.bitmapData(game.width, game.height);
             playState.bitmap.context.fillStyle = 'rgb(255, 255, 255)';
             playState.bitmap.context.strokeStyle = 'rgb(255, 255, 255)';
             game.add.image(0, 0, playState.bitmap);
+
+
         },
 
         clean = function(){
@@ -152,6 +138,8 @@ var playState = {
         playState.left = playState.limit.create(-10, 0, 'sides');
         playState.right = playState.limit.create(2350, 0, 'sides');
         playState.top = playState.limit.create(10, 0, 'sky');
+        // Añadimos un muro inferior en caso de que la colisón con el tileset falle
+        playState.bottom = playState.limit.create(0, 750, 'sky');
 
         playState.limit.setAll('body.immovable', true);
         
@@ -192,17 +180,26 @@ var playState = {
         playState.luz.alpha = 0;
        // playState.luz.body.velocity.x = 30;
 
-        // Gestión de trayectoria y disparos
+        // Gestión de trayectoria 
         playState.bitmap = game.add.bitmapData(game.width, game.height);
+
+
+
+        // Gestión de los disparos
         playState.bulletPool = game.add.group();
         playState.bulletPool.enableBody = true;
-        playState.bullet = playState.bulletPool.create(playState.player.x, playState.player.y, 'bullet');
+
+        playState.bullet = playState.bulletPool.create(playState.jugador1.x, playState.jugador1.y, 'bullet');
         //Set its pivot point to the center of the bullet
         playState.bullet.anchor.setTo(0.5, 0.5);
         // Set its initial state to "dead".
         playState.bullet.kill();
 
-        playState.bullet.body.gravity.y = playState.GRAVITY;
+        // bullet2
+        playState.bullet2 = playState.bulletPool.create(playState.jugador2.x, playState.jugador2.y, 'bullet');
+        playState.bullet2.anchor.setTo(0.5, 0.5);
+        playState.bullet2.kill();
+        
 
 
         // Enable input para ambos jugadores
@@ -343,31 +340,15 @@ var playState = {
         
         //Variables locales a update
         var timeOffset;
-        var hit;
-        //var diftime;
-        //var elapsed;
-
-        colisionPelotaJ1 = function(player, bullet) {
-            playState.vidaJ1 -= 20;
-            playState.barraJ1.setPercent(playState.vidaJ1);
-        },
         
-        colisionPelotaJ2 = function(player, bullet) {
-            playState.vidaJ2 -= 20;
-            playState.barraJ2.setPercent(playState.vidaJ2);
-        },
 
+        // Sistema spritesheets j1
         chargeJ1 = function(){
             playState.jugador1.loadTexture('j1Cargando', 0);
             playState.jugador1.animations.add('charging');
             playState.jugador1.animations.play('charging', 8, true);
         },
         
-        fireJ1 = function(){
-            playState.jugador1.loadTexture('j1Disparando', 0);
-            playState.jugador1.animations.add('fire');
-            playState.jugador1.animations.play('fire', 8, true);
-        },
         
         idleJ1 = function(){
             playState.jugador1.loadTexture('jugador1', 0);
@@ -375,17 +356,14 @@ var playState = {
             playState.jugador1.animations.play('idle', 8, true);
         },
 
-        // Sistema de control de spritesheets j2:   modularizar proximamente
+
+        // Sistema de control de spritesheets j2
         chargeJ2 = function(){
             playState.jugador2.loadTexture('j2Cargando', 0);
             playState.jugador2.animations.add('charging');
             playState.jugador2.animations.play('charging', 8, true);
         },
-        fireJ2 = function(){
-            playState.jugador2.loadTexture('j1Disparando', 0);
-            playState.jugador2.animations.add('fire');
-            playState.jugador2.animations.play('fire', 8, true);
-        },
+       
         
         idleJ2 = function(){
             playState.jugador2.loadTexture('jugador2', 0);
@@ -422,52 +400,53 @@ var playState = {
         game.physics.arcade.collide(playState.player, playState.layer);
         // Colisiones bullet con el mapa
         var hitGround = game.physics.arcade.collide(playState.bulletPool, playState.layer);
-        var hitJugador = game.physics.arcade.collide(playState.player, playState.bulletPool);
+        var hitJugador1 = game.physics.arcade.collide(playState.jugador1, playState.bullet2);
+        var hitJugador2 = game.physics.arcade.collide(playState.jugador2, playState.bullet);        
         var hitBounds = game.physics.arcade.collide(playState.bulletPool, playState.limit);
+
 
         playState.bulletPool.forEachAlive(function(bullet) {
             playState.bullet.rotation = Math.atan2(playState.bullet.body.velocity.y, playState.bullet.body.velocity.x);
         }, this);
 
+
+        playState.bulletPool.forEachAlive(function(bullet2) {
+            playState.bullet2.rotation = Math.atan2(playState.bullet2.body.velocity.y, playState.bullet2.body.velocity.x);
+        }, this);
+
+
+
         if (playState.gun != undefined){
             playState.gun.rotation = game.physics.arcade.angleToPointer(playState.gun);
-            console.log(playState.gun.rotation) + " porba    ";
+            //console.log(playState.gun.rotation) + " porba    ";
             drawTraj();     
-
-            if (playState.bullet != undefined){
-                //Variable para detectar colisión pelota-jugador:
-                game.physics.arcade.overlap(playState.jugador1, playState.bullet, colisionPelotaJ1, null, this);
-                game.physics.arcade.overlap(playState.jugador2, playState.bullet, colisionPelotaJ2, null, this); 
-            }
         } 
 
-        /*if (hitJugador || hitGround || hitBounds) {
-            hit = true;
-            elapsed = 0;
-            diftime = 0;            
+
+        if (playState.turn == false && hitJugador1) {
+            console.log("joder");
+            playState.vidaJ1 -= 20;
+            playState.barraJ1.setPercent(playState.vidaJ1);
             playState.bullet.kill();
-            elapsed = game.time.totalElapsedSeconds();
+            //Eliminamos la bala2 por si cae sobre él mismo
+            playState.bullet2.kill();
+            this.timer.loop(800, camera, this);
+            this.timer.start();
+
+        } else if (playState.turn == true && hitJugador2) {
+            playState.vidaJ2 -= 20;
+            playState.barraJ2.setPercent(playState.vidaJ2);
+            playState.bullet2.kill();
+            //Eliminamos la bala por si cae sobre él mismo
+            playState.bullet.kill();
+            this.timer.loop(800, camera, this);
+            this.timer.start();
         }
-
-        //Cuando ha habido colisión, se llama a este método para esperar 0.8 segundos antes de cambiar la cámara
-        if (hit){
-            console.log(playState.turn); 
-            playState.turn = !playState.turn;
-            diftime = game.time.totalElapsedSeconds() - elapsed;
-            console.log(elapsed);
-            console.log(diftime);
-            playState.turn = !this.turn; 
-            if (diftime >= 0.8){
-                playState.turn = !playState.turn;
-                console.log("gallerta");
-                playState.bolaON = false;
-                hit = false;
-            }
-        }*/
-
-        if (hitJugador || hitGround || hitBounds) {
-            hit = true;
+        
+       if ( hitGround || hitBounds) {
             playState.bullet.kill();
+            playState.bullet2.kill();
+            
             this.timer.loop(800, camera, this);
             this.timer.start();
         }
@@ -476,7 +455,6 @@ var playState = {
         function camera(){
             playState.turn = !playState.turn;
             playState.bolaON = false;
-            hit = false;
             this.timer.stop();
         }
 
@@ -495,6 +473,7 @@ var playState = {
                 game.add.tween(playState.luz).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
             }, this);
         }*/
+
         if(this.luzbool === false){
             game.time.events.add(15000, function() {
                 this.luzbool = true;      
@@ -511,8 +490,10 @@ var playState = {
         
 
 
-        if (playState.bolaON == true){
+        if (playState.bolaON == true && playState.turn == true){
             game.camera.follow(playState.bullet);
+        } else if(playState.bolaON == true && playState.turn == false){
+            game.camera.follow(playState.bullet2);
         }else if(playState.bolaON == false && playState.turn == true) {
             game.camera.follow(playState.jugador1);
         }else if(playState.bolaON == false && playState.turn == false) {
@@ -527,4 +508,5 @@ var playState = {
 
         
     },
+
 }
