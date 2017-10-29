@@ -5,7 +5,7 @@
 <a href="#grupos">1. Integrantes del Grupo</a><br>
 <a href="#desc">2. Descripción del Juego</a><br>
 <a href="#reglas">3. Reglas</a><br>
-<a href="#diagrama">4. Diagrama de secuencia.</a><br>
+<a href="#diagrama">4. Funcionamiento y diagrama de navegación.</a><br>
 
 <div id="grupos">
         <h2>
@@ -72,7 +72,7 @@
 -->
 <div id="diagrama">
 <h2>
-  <a href="#TOC">4. Diagrama de secuencia</a>
+  <a href="#TOC">4. Funcionamiento y diagrama de navegación</a>
 </h2>
   <ul>
   <p><strong>
@@ -83,10 +83,28 @@
       <li><i>About us:</i> Te lleva a nuestro repertorio de GitHub.</li> 
   </ul> 
   </ul></p>
+  
+![picture](https://i.imgur.com/PpIhuzS.jpg)
+  
   <p><ul><li> <strong>Pantalla 1.1: </strong> Pantalla anterior pero en pantalla completa.</ul></li></p>
+  
+  ![picture](https://i.imgur.com/Vqp9d5y.jpg)
+
   <p><ul><li><strong>Pantalla 2: </strong> Pantalla del juego en si, donde tendremos que conseguir golpear a nuestro enemigo, situado aleatoriamente al otro lado del escenario.</ul></li></p>
   <p><ul><li><strong>Pantalla 2.1: </strong> Menú de pausa con las opciones de "Continuar, Reiniciar y Salir", explicadas anteriormente.</ul></li></p>
-  <p><ul><li><strong>Pantalla 3.1: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 1, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
-  <p><ul><li><strong>Pantalla 3.2: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 2, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
   
+![picture](https://i.imgur.com/yL56hUn.jpg)
+  
+  <p><ul><li><strong>Pantalla 3.1: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 1, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
+  
+![picture](https://i.imgur.com/a2gbfkM.png)
+  
+  <p><ul><li><strong>Pantalla 3.2: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 2, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
+ 
+![picture](https://i.imgur.com/S3MsM7h.png)
+  
+<h2> <ul><li> Diagrama de navegación </li> </ul> </h2>
+
+![picture](https://i.imgur.com/EFgRRoq.png)
+
 </div>
