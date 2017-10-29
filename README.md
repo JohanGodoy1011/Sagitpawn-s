@@ -5,6 +5,7 @@
 <a href="#grupos">1. Integrantes del Grupo</a><br>
 <a href="#desc">2. Descripción del Juego</a><br>
 <a href="#reglas">3. Reglas</a><br>
+<a href="#diagrama">4. Diagrama de secuencia.</a><br>
 
 <div id="grupos">
         <h2>
@@ -69,3 +70,23 @@
   <p id="cambios">El equipo de desarrollo ha creado una carpeta para el desarrollo del código del juego, que incluye archivos js, imágenes y sprites propios y un fichero html donde se ha implementado Sagitpawn's empleando Phaser. En esta fase, el equipo ha implementado la base de Sagitpawn's: un escenario con dos personajes presentes en el que ,por turnos, cargan un disparo con el que tratan de impactar al rival.<br> Se han empleado spritesheets originales para los personajes, que cuentan con animaciones básicas aún en desarrollo. Mediante ejemplos de la web de Phaser se ha podido implementar un sistema de disparo que tenga en cuenta el vector resultante de la diferencia entre la posición donde se hace click y en la que se suelta el botón, dando la opción a hacer tiros de más o menos fuerza y con distinto ángulo. Se incluye además el sistema de gestión de la vida de los personajes</p>
 </div>
 -->
+<div id="diagrama">
+<h2>
+  <a href="#TOC">4. Diagrama de secuencia</a>
+</h2>
+  <ul>
+  <p><strong>
+    <li>Pantalla 1</strong> Pantalla de inicio con el fondo de Sagitpaw's.</li>
+    <ul>
+      <li><i>Jugar:</i> Jugaremos una nueva partida.</li>
+      <li><i>Salir:</i> Saldremos del juego.</li>
+      <li><i>About us:</i> Te lleva a nuestro repertorio de GitHub.</li> 
+  </ul> 
+  </ul></p>
+  <p><ul><li> <strong>Pantalla 1.1: </strong> Pantalla anterior pero en pantalla completa.</ul></li></p>
+  <p><ul><li><strong>Pantalla 2: </strong> Pantalla del juego en si, donde tendremos que conseguir golpear a nuestro enemigo, situado aleatoriamente al otro lado del escenario.</ul></li></p>
+  <p><ul><li><strong>Pantalla 2.1: </strong> Menú de pausa con las opciones de "Continuar, Reiniciar y Salir", explicadas anteriormente.</ul></li></p>
+  <p><ul><li><strong>Pantalla 3.1: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 1, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
+  <p><ul><li><strong>Pantalla 3.2: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 2, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
+  
+</div>
