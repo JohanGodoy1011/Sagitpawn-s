@@ -4,6 +4,7 @@ var playState = {
     bolaON: false,
     turn: true,
     luzbool:false,
+    luzbool1:false,
     
     player: undefined,
     jugador1: undefined,
@@ -40,6 +41,7 @@ var playState = {
 
     //Luciernagas
     luz:undefined,
+    luz1:undefined,
 
     //Sonido
     musica:undefined,
@@ -195,13 +197,22 @@ var playState = {
         playState.jugador2.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 2 y le damos nombre a la animación como idle.
 
         // Animacion de luciernagas
-
+        
         playState.luz = game.add.sprite(850, 285, 'luz');
         playState.luz.scale.setTo(0.75, 0.75);
         game.physics.arcade.enable(playState.luz);
         playState.luz.animations.add('bucle');
         playState.luz.animations.play('bucle', 3, true);
         playState.luz.alpha = 0;
+
+        playState.luz1 = game.add.sprite(1835, 285, 'luz');
+        playState.luz1.scale.setTo(0.75, 0.75);
+        game.physics.arcade.enable(playState.luz1);
+        playState.luz1.animations.add('bucle1');
+        playState.luz1.animations.play('bucle1', 3, true);
+
+
+
        // playState.luz.body.velocity.x = 30;
 
         // Gestión de trayectoria 
@@ -492,6 +503,19 @@ var playState = {
             game.time.events.add(15000, function() {    
                 this.luzbool = false;  
                 game.add.tween(playState.luz).to({alpha: 0}, 200, Phaser.Easing.Linear.None, true);
+                
+            }, this);
+        }
+
+        if(this.luzbool1 === true){
+            game.time.events.add(15000, function() {
+                this.luzbool1 = false;      
+                game.add.tween(playState.luz1).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true);
+            }, this);
+        }else{
+            game.time.events.add(15000, function() {    
+                this.luzbool1 = true;  
+                game.add.tween(playState.luz1).to({alpha: 0}, 200, Phaser.Easing.Linear.None, true);
                 
             }, this);
         }
