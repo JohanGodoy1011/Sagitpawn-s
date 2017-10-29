@@ -19,9 +19,9 @@ var playState = {
     bulletPool: undefined,
     
     
-    vidaJ1: 20,
+    vidaJ1: 100,
     barraJ1:undefined,
-    vidaJ2: 20,
+    vidaJ2: 100,
     barraJ2:undefined,
     layer:undefined,
     h: 1100,
@@ -511,22 +511,14 @@ var playState = {
 
         finish1 = function(){
             this.timer.stop();
-<<<<<<< HEAD:Sagitpawn's Code - Fase 1/play.js
             this.musica.pause();
-=======
-            game.camera.follow(playState.jugador2);
->>>>>>> 8c1269020a04661bdc920e9e15af895ea548977b:Sagitpawn's Code - Fase 1/Sagitpawn's.js
             game.state.add('gameover2', finishState2);
             game.state.start('gameover2');
         }
 
         finish2 = function(){
             this.timer.stop();
-<<<<<<< HEAD:Sagitpawn's Code - Fase 1/play.js
             this.musica.pause();
-=======
-            game.camera.follow(playState.jugador1);
->>>>>>> 8c1269020a04661bdc920e9e15af895ea548977b:Sagitpawn's Code - Fase 1/Sagitpawn's.js
             game.state.add('gameover1', finishState1);
             game.state.start('gameover1');
         }
@@ -541,8 +533,6 @@ var playState = {
             this.timer.loop(500, finish2, this); 
             this.timer.start();           
         }
-
-        
     },
 
 }
