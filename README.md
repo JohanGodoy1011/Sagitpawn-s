@@ -57,19 +57,18 @@
   
 </div>
 
-<!--
----
 ## Fase 2: Desarrollo del juego en local
 <div id="fase2"> 
   <h2>Objetivos:</h2>
   <ul>
-    <li>Diseñar el sistema de jeugo base de Sagitpawn's</li>
-    <li>Diseño del html, así como de sprites y recursos gráficos y de audio que empleará el juego</li>
+    <li>Diseñar el sistema de juego base de Sagitpawn's</li>
+    <li>Diseño del <i>html</i>, así como de sprites y recursos gráficos y de audio que empleará el juego</li>
     <li>Permitir jugar una partida en local</li>
   </ul>
-  <p id="cambios">El equipo de desarrollo ha creado una carpeta para el desarrollo del código del juego, que incluye archivos js, imágenes y sprites propios y un fichero html donde se ha implementado Sagitpawn's empleando Phaser. En esta fase, el equipo ha implementado la base de Sagitpawn's: un escenario con dos personajes presentes en el que ,por turnos, cargan un disparo con el que tratan de impactar al rival.<br> Se han empleado spritesheets originales para los personajes, que cuentan con animaciones básicas aún en desarrollo. Mediante ejemplos de la web de Phaser se ha podido implementar un sistema de disparo que tenga en cuenta el vector resultante de la diferencia entre la posición donde se hace click y en la que se suelta el botón, dando la opción a hacer tiros de más o menos fuerza y con distinto ángulo. Se incluye además el sistema de gestión de la vida de los personajes</p>
+  <p id="cambios">El equipo de desarrollo ha creado una carpeta para el desarrollo del código del juego, que incluye archivos <i>.js</i>, imágenes, sprites propios y un fichero <i>html</i> donde se ha implementado Sagitpawn's empleando Phaser. En esta fase, el equipo ha implementado la base de Sagitpawn's: un escenario con dos personajes presentes en el que, por turnos, cargan un disparo con el que tratan de impactar al rival.<br> Se han empleado spritesheets originales para los personajes, que cuentan con animaciones básicas. Mediante ejemplos de la web de Phaser se ha podido implementar un sistema de disparo que tenga en cuenta el vector resultante de la diferencia entre la posición donde se hace click y en la que se suelta el botón, dando la opción a hacer tiros de más o menos fuerza y con distinto ángulo. Se incluye además el sistema de gestión de la vida de los personajes</p>
+  <p> En la fase final del desarrollo, el equipo también ha optado por dividir el desarollo del mismo en states, creando así, diferentes archivos <i>.js</i> (game, boot, preload, menu, play y gameover). De esta manera, hemos conseguido que la navegación entre estados del juego sea muchos más sencilla (pudiendo avanzar desde cualquier punto a cualquier otro con una línea de código).</p>
 </div>
--->
+
 <div id="diagrama">
 <h2>
   <a href="#TOC">4. Funcionamiento y diagrama de navegación</a>
