@@ -157,7 +157,7 @@ var playState = {
         playState.player.enableBody = true;
         
         var posibles1 = [215, 240, 265, 350, 380, 410, 450, 480, 510];
-        playState.jugador1 = playState.player.create(posibles1[Math.floor(Math.random()*posibles1.length)], 400, 'jugador1'); //game.rnd.integerInRange(100, 550)
+        playState.jugador1 = playState.player.create(posibles1[Math.floor(Math.random()*posibles1.length)], 650, 'jugador1'); //game.rnd.integerInRange(100, 550)
         playState.jugador1.anchor.setTo(0.5, 0.5); 
         var posibles2 = [2050, 1850, 1900, 2080];
         var rnd = game.rnd.integerInRange(0,7);
