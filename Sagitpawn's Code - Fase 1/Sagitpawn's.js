@@ -175,11 +175,12 @@ var playState = {
         playState.player.enableBody = true;
         
         var posibles1 = [215, 240, 265, 350, 380, 410, 450, 480, 510];
-        playState.jugador1 = playState.player.create(posibles1[Math.floor(Math.random()*posibles1.length)], 400, 'jugador1'); //game.rnd.integerInRange(100, 550)
+        playState.jugador1 = playState.player.create(posibles1[Math.floor(Math.random()*posibles1.length)], 650, 'jugador1'); //game.rnd.integerInRange(100, 550)
         playState.jugador1.anchor.setTo(0.5, 0.5); 
         var posibles2 = [2050, 1850, 1900, 2080];
         var rnd = game.rnd.integerInRange(0,7);
         playState.jugador2 = playState.player.create(posibles2[Math.floor(Math.random()*posibles2.length)], 400, 'jugador2'); //posibles[rnd]        2050, 1850, 1900, 2080 
+        
         playState.jugador2.anchor.setTo(0.5, 0.5); 
         // De momento no queremos que se muevan al colisionar con la bala
         playState.player.setAll('body.immovable', true);
@@ -510,14 +511,22 @@ var playState = {
 
         finish1 = function(){
             this.timer.stop();
+<<<<<<< HEAD:Sagitpawn's Code - Fase 1/play.js
             this.musica.pause();
+=======
+            game.camera.follow(playState.jugador2);
+>>>>>>> 8c1269020a04661bdc920e9e15af895ea548977b:Sagitpawn's Code - Fase 1/Sagitpawn's.js
             game.state.add('gameover2', finishState2);
             game.state.start('gameover2');
         }
 
         finish2 = function(){
             this.timer.stop();
+<<<<<<< HEAD:Sagitpawn's Code - Fase 1/play.js
             this.musica.pause();
+=======
+            game.camera.follow(playState.jugador1);
+>>>>>>> 8c1269020a04661bdc920e9e15af895ea548977b:Sagitpawn's Code - Fase 1/Sagitpawn's.js
             game.state.add('gameover1', finishState1);
             game.state.start('gameover1');
         }

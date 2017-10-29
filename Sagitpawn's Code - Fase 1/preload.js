@@ -8,10 +8,9 @@ var loadState = {
 
         // Sprites
         game.load.spritesheet('jugador1', 'Sprites/lanzer.png', 55, 75, 20);                    //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
-        game.load.spritesheet('j1Cargando', 'Sprites/lanzerCharging.png',55, 75, 8);            //Cargamos la animación del j1 para cargar 'charging'
-        game.load.spritesheet('j1Disparando', 'Sprites/lanzerFire.png',55, 75, 20);             //Cargamos la animación del j1 para disparar 'fire'
-        game.load.spritesheet('jugador2', 'Sprites/lanzer2.png', 55, 75, 20);                   //Cargamos el spritesheet del primer jugador, la que será la animación 'idle'.
-        game.load.spritesheet('j2Cargando', 'Sprites/lanzer2Charging.png',55, 75, 8);
+        game.load.spritesheet('j1Cargando', 'Sprites/lanzerCharging.png',55, 75, 20);           //Cargamos la animación del j1 para cargar 'charging'
+        game.load.spritesheet('jugador2', 'Sprites/lanzerDos.png', 55, 75, 20);                //Cargamos el spritesheet del segundo jugador, la que será la animación 'idle'.
+        game.load.spritesheet('j2Cargando', 'Sprites/lanzerDosCharging.png',55, 75, 20);
         
         game.load.bitmapFont('menu', 'Font/font.png', 'Font/font.fnt');
 
