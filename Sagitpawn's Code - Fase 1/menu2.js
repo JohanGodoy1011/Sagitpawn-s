@@ -1,4 +1,3 @@
-//@grant window.close
 
 var menuState2 = {
     create: function (){
@@ -35,6 +34,36 @@ var menuState2 = {
             target.fill = "red";
         });
         txt2.events.onInputDown.add(this.close, this);
+        var optionStyle2 = {font: '25pt  Lucida Console', fill: 'black', align: 'left'};
+        var txt3 = game.add.text(10, 665, 'About us ® ', optionStyle2);
+        txt3.inputEnabled = true;
+        txt3.events.onInputOver.add(function (target) {
+            target.fill = "#FFFFFF";
+        });
+        txt3.events.onInputOut.add(function (target) {
+            target.fill = "#000000";
+        });
+        txt3.events.onInputDown.add(function (target){
+            window.open("https://github.com/JorgeMS05/Sagitpawn-s", "_blank")
+        });
+
+        gofull = function() {
+            
+            console.log("reescalando");
+            if (game.scale.isFullScreen)
+            {
+                game.scale.stopFullScreen();
+            }
+            else
+            {
+                game.scale.startFullScreen(false);
+            }
+
+        },
+
+        cursors = game.input.keyboard.addKey(Phaser.Keyboard.F);
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        cursors.onDown.add(gofull, this);
         
     },
 
@@ -44,12 +73,6 @@ var menuState2 = {
     },
 
     close: function(){
-        //cerrar pestaña
         game.destroy();
-        /*
-        var popup = window.open(location, '_self', '');
-        popup.close();
-        */
-        //open(location, '_self').close();
     },
 }

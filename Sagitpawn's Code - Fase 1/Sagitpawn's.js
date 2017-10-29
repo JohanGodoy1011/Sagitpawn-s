@@ -162,6 +162,7 @@ var playState = {
         var posibles2 = [2050, 1850, 1900, 2080];
         var rnd = game.rnd.integerInRange(0,7);
         playState.jugador2 = playState.player.create(posibles2[Math.floor(Math.random()*posibles2.length)], 400, 'jugador2'); //posibles[rnd]        2050, 1850, 1900, 2080 
+        
         playState.jugador2.anchor.setTo(0.5, 0.5); 
         // De momento no queremos que se muevan al colisionar con la bala
         playState.player.setAll('body.immovable', true);
@@ -488,12 +489,14 @@ var playState = {
 
         finish1 = function(){
             this.timer.stop();
+            game.camera.follow(playState.jugador2);
             game.state.add('gameover2', finishState2);
             game.state.start('gameover2');
         }
 
         finish2 = function(){
             this.timer.stop();
+            game.camera.follow(playState.jugador1);
             game.state.add('gameover1', finishState1);
             game.state.start('gameover1');
         }
