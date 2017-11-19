@@ -1,6 +1,8 @@
 var finishState1 = {
 
     gameoversound1:undefined,
+    prueba: 0,
+    timer: undefined,
 
     create: function (){
 
@@ -8,6 +10,8 @@ var finishState1 = {
         finishState1.gameoversound1.volume = 1;
         finishState1.gameoversound1.loop = false;
         finishState1.gameoversound1.play();
+
+        this.timer = game.time.create(false);
         
         game.add.sprite(0, 0, 'go11');                //Añadimos el texto 
 
@@ -27,5 +31,27 @@ var finishState1 = {
             game.state.start('menu2');
         },
         
+        update: function(){
+
+            img1 = function(){
+                playState.prueba = 0;
+                this.timer.stop();
+                game.add.sprite(0, 0, 'go11');
+            }
+            
+            img2 = function(){
+                playState.prueba = 1;
+                this.timer.stop();            
+                game.add.sprite(0, 0, 'go12');
+            }
+
+            if (playState.prueba == 0){
+                this.timer.loop(500, img2, this);
+                this.timer.start();
+            }else {
+                this.timer.loop(500, img1, this);
+                this.timer.start();
+            }
+        }
 
 }

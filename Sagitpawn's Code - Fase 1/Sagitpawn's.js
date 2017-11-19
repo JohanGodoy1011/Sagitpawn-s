@@ -20,13 +20,17 @@ var playState = {
     bulletPool: undefined,
     
     
-    vidaJ1: 100,
+    vidaJ1: 60,
     barraJ1:undefined,
-    vidaJ2: 100,
+    vidaJ2: 60,
     barraJ2:undefined,
     layer:undefined,
     h: 1100,
     w: 700,
+
+    puntuacion: undefined,
+    puntuacionj1: 0,
+    puntuacionj2: 0,
 
     cursor: undefined,
 
@@ -70,6 +74,7 @@ var playState = {
             var max = 1800;
             var min = 250;
             playState.BULLET_SPEED = game.physics.arcade.distanceToPointer(pointer) * 10;
+            playState.puntuacion = Math.round(playState.BULLET_SPEED/100);
             if (playState.BULLET_SPEED >= max){playState.BULLET_SPEED = max;}
             if (playState.BULLET_SPEED <= min){playState.BULLET_SPEED = min;}
 
@@ -430,6 +435,7 @@ var playState = {
 
 
         if (playState.turn == false && hitJugador1) {
+            playState.puntuacionj2 += playState.puntuacion;
             playState.vidaJ1 -= 20;
             playState.barraJ1.setPercent(playState.vidaJ1);
             playState.bullet.kill();
@@ -439,6 +445,7 @@ var playState = {
             this.timer.start();
 
         } else if (playState.turn == true && hitJugador2) {
+            playState.puntuacionj1 += playState.puntuacion;
             playState.vidaJ2 -= 20;
             playState.barraJ2.setPercent(playState.vidaJ2);
             playState.bullet2.kill();
