@@ -17,7 +17,14 @@ var finishState2 = {
 
         var cursors = game.input.keyboard.addKey(Phaser.Keyboard.R);
         cursors.onDown.add(this.start, this);
+        
+        // Get de la puntuación
+        $.ajax({
+        	method: "GET",
+        	url: "http://127.0.0.1:8080/jugadores/1/puntos",
+        });
 
+        
         },
 
         start: function(){
