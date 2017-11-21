@@ -32,7 +32,7 @@ var menuState = {
         });
         txt.events.onInputDown.add(this.start, this);       //Llamamos a la función start(), cuando clickamos en el texto
 
-        var txt2 = game.add.text(game.world.centerX, 430, 'Salir', optionStyle);
+        var txt2 = game.add.text(game.world.centerX, 400, 'High Scores', optionStyle);
         txt2.anchor.set(0.5);
         txt2.inputEnabled = true;
         txt2.events.onInputOver.add(function (target) {
@@ -41,18 +41,29 @@ var menuState = {
         txt2.events.onInputOut.add(function (target) {
             target.fill = "red";
         });
-        txt2.events.onInputDown.add(this.close, this);
+        txt2.events.onInputDown.add(this.scores, this);
 
-        var optionStyle2 = {font: '25pt  Lucida Console', fill: 'black', align: 'left'};
-        var txt3 = game.add.text(10, 665, 'About us ® ', optionStyle2);
+        var txt3 = game.add.text(game.world.centerX, 500, 'Salir', optionStyle);
+        txt3.anchor.set(0.5);
         txt3.inputEnabled = true;
         txt3.events.onInputOver.add(function (target) {
+            target.fill = "#000000";
+         });
+        txt3.events.onInputOut.add(function (target) {
+            target.fill = "red";
+        });
+        txt3.events.onInputDown.add(this.close, this);
+
+        var optionStyle2 = {font: '25pt  Lucida Console', fill: 'black', align: 'left'};
+        var txt4 = game.add.text(10, 665, 'About us ® ', optionStyle2);
+        txt4.inputEnabled = true;
+        txt4.events.onInputOver.add(function (target) {
             target.fill = "#FFFFFF";
         });
-        txt3.events.onInputOut.add(function (target) {
+        txt4.events.onInputOut.add(function (target) {
             target.fill = "#000000";
         });
-        txt3.events.onInputDown.add(function (target){
+        txt4.events.onInputDown.add(function (target){
             window.open("https://github.com/JorgeMS05/Sagitpawn-s", "_blank")
         });
 
@@ -86,4 +97,9 @@ var menuState = {
     close: function(){
         game.destroy();
     },
+
+    scores: function(){
+        game.state.add('highScore', highScore);
+        game.state.start('highScore');
+    }
 }

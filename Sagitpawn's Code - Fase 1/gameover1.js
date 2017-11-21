@@ -3,6 +3,8 @@ var finishState1 = {
     gameoversound1:undefined,
     prueba: 0,
     timer: undefined,
+    auxiliar: undefined,
+    puntuacionj1: undefined,
 
     create: function (){
 
@@ -18,7 +20,12 @@ var finishState1 = {
         var cursors = game.input.keyboard.addKey(Phaser.Keyboard.R);
         cursors.onDown.add(this.start, this);
 
+        //Petición para la puntuación del JUGADOR 1
+        playState.auxiliar = "6969";
+
+    
         },
+
 
         start: function(){
             this.gameoversound1.pause();
@@ -32,6 +39,11 @@ var finishState1 = {
         },
         
         update: function(){
+
+            var txt = game.add.text(600, 555, "", optionStyle);
+            var optionStyle = {font: '40pt  Lucida Console', fill: 'white', align: 'left'};
+            txt = game.add.text(600, 555, playState.auxiliar, optionStyle);
+            
 
             img1 = function(){
                 playState.prueba = 0;
