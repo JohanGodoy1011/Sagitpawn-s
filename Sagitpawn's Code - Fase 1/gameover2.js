@@ -17,10 +17,20 @@ var finishState2 = {
 
         var cursors = game.input.keyboard.addKey(Phaser.Keyboard.R);
         cursors.onDown.add(this.start, this);
+        
+        // Get de la puntuación
+        $.ajax({
+        	method: "GET",
+        	url: "http://127.0.0.1:8080/jugadores/1/puntos",
+        });
 
+<<<<<<< HEAD
         //Petición para la puntuación del JUGADOR 1
         playState.auxiliar = "6969";
 
+=======
+        
+>>>>>>> f219d2528ecbf1e39b0e864ef51a405751fca40d
         },
 
         start: function(){

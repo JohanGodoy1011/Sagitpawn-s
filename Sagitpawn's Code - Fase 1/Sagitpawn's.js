@@ -20,9 +20,9 @@ var playState = {
     bulletPool: undefined,
     
     
-    vidaJ1: 60,
+    vidaJ1: 100,
     barraJ1:undefined,
-    vidaJ2: 60,
+    vidaJ2: 100,
     barraJ2:undefined,
     layer:undefined,
     h: 1100,
@@ -192,6 +192,38 @@ var playState = {
         playState.jugador2.animations.add('idle');                
         playState.jugador2.animations.play('idle', 10, true);             //Cargamos la spritesheet para el jugador 2 y le damos nombre a la animación como idle.
 
+        
+        
+        // Peticiones POST para iniciar la puntuación de ambos jugadores
+        $.ajax({
+        	method: "POST",
+        	url: "http://127.0.0.1:8080/jugadores",
+        	data: JSON.stringify({puntos: "0" , turnos:"1"}),
+        	processData: false,
+        	headers: {
+        		"Content-type": "application/json",
+        	}
+        }).done(function (data, textStatus, jqXHR){
+        	console.log(textStatus+ " " + jqXHR.statusCode());
+        }).fail(function (data, textStatus, jqXHR){
+        	console.log(textStatus+ " " + jqXHR.statusCode());
+        });
+        
+        $.ajax({
+        	method: "POST",
+        	url: "http://127.0.0.1:8080/jugadores",
+        	data: JSON.stringify({puntos: "0" , turnos:"2"}),
+        	processData: false,
+        	headers: {
+        		"Content-type": "application/json",
+        	}
+        }).done(function (data, textStatus, jqXHR){
+        	console.log(textStatus+ " " + jqXHR.statusCode());
+        }).fail(function (data, textStatus, jqXHR){
+        	console.log(textStatus+ " " + jqXHR.statusCode());
+        });
+        
+        
         // Animacion de luciernagas
         
         playState.luz = game.add.sprite(850, 285, 'luz');
@@ -436,6 +468,22 @@ var playState = {
 
         if (playState.turn == false && hitJugador1) {
             playState.puntuacionj2 += playState.puntuacion;
+            // Actualización en el servidor de la puntuación
+            $.ajax({
+            	method: "PUT",
+            	url: "http://127.0.0.1:8080/jugadores/1",
+            	data: JSON.stringify({puntos: playState.puntuacionj2 , turnos:"2"}),
+            	processData: false,
+            	headers: {
+            		"Content-type": "application/json",
+            	}
+            }).done(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            }).fail(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            });
+            
+            console.log(playState.puntuacionj2);
             playState.vidaJ1 -= 20;
             playState.barraJ1.setPercent(playState.vidaJ1);
             playState.bullet.kill();
@@ -446,6 +494,22 @@ var playState = {
 
         } else if (playState.turn == true && hitJugador2) {
             playState.puntuacionj1 += playState.puntuacion;
+            // Actualización en el servidor de la puntuación
+            $.ajax({
+            	method: "PUT",
+            	url: "http://127.0.0.1:8080/jugadores/0",
+            	data: JSON.stringify({puntos: playState.puntuacionj1 , turnos:"1"}),
+            	processData: false,
+            	headers: {
+            		"Content-type": "application/json",
+            	}
+            }).done(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            }).fail(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            });
+            
+            console.log(playState.puntuacionj1);
             playState.vidaJ2 -= 20;
             playState.barraJ2.setPercent(playState.vidaJ2);
             playState.bullet2.kill();
