@@ -6,6 +6,8 @@
 <a href="#desc">2. Descripción del Juego</a><br>
 <a href="#reglas">3. Reglas</a><br>
 <a href="#diagrama">4. Funcionamiento y diagrama de navegación.</a><br>
+<a href="#diagramaclases">5. Diagrama de clases.</a><br>
+<a href="#instrucciones">6. Instrucciones de ejecución.</a><br>
 
 <div id="grupos">
         <h2>
@@ -102,11 +104,47 @@
 ![picture](https://i.imgur.com/a2gbfkM.png)
   
   <p><ul><li><strong>Pantalla 3.2: </strong> Pantalla de Game Over, en la cual habrá ganado el Jugador 2, si pulsamos la 'r', reiniciaremos el juego</ul></li></p>
+  
  
 ![picture](https://i.imgur.com/S3MsM7h.png)
+
+ <p> Durante el desarrollo de la tercera fase, se ha implementado una nueva funcionalidad: mediante el uso de la API Rest, al final de cada partida, se realiza una petición GET de la puntuación del jugador que haya ganado y se muestra por pantalla. Para realizar esto, se han modificado las siguientes pantallas:
+ <p>
+   
+<p><ul><li><strong>Pantalla 3.1:</strong> Ahora pasa a mostrar la puntuación del jugador 1. </ul></li></p>
+  
+![picture](https://i.imgur.com/ZyNsLp9.png)
+
+<p><ul><li><strong>Pantalla 3.2:</strong> Ahora pasa a mostrar la puntuación del jugador 2. </ul></li></p>
+
+![picture](https://i.imgur.com/ViUAJpT.png)
+    
   
 <h2> <ul><li> Diagrama de navegación </li> </ul> </h2>
 
 ![picture](https://i.imgur.com/EFgRRoq.png)
 
+</div>
+
+## Fase 3: Desarrollo del juego e implementación de API Rest.
+<div id="diagramaclases">
+  <h2>
+  <a href="#TOC">5. Diagrama de clases</a>
+    
+![picture]()
+    
+</h2>
+</div>
+
+<div id="instrucciones">
+  <h2>
+  <a href="#TOC">6. Instrucciones de ejecución</a>
+</h2>
+  <p>
+    Para poder ejecutar Sagitpawn's, tenemos dos opciones:
+  <ul>
+    <li>Podemos ejeturar el archivo llamado Sagitpawn's.jar y acceder al juego mediante la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
+    <li>O bien, dentro del framework Spring Tool, podemos abrir el archivo PlayerAplicaction, que se encuentra dentro de la ruta <i>C:\\Usuario\Documents\GitHub\Sagitpawn-s\Sagitpawn's Servidor REST\PlayerApplication</i>, click derecho sobre él Run As>Java Application y después acceder a la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
+  </ul>
+  </p>
 </div>
