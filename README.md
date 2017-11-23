@@ -131,7 +131,7 @@
   <h2>
   <a href="#TOC">5. Diagrama de clases</a>
     
-![picture]()
+![picture](https://i.imgur.com/wJ4wtSR.png)
     
 </h2>
 </div>
