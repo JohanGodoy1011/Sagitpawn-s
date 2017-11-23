@@ -1,7 +1,6 @@
 var loadState = {
     preload: function() {
-
-        game.load.tilemap('MyTilemap', 'Map/mapafinal.csv', null, Phaser.Tilemap.CSV);
+    	game.load.tilemap('MyTilemap', 'Map/mapafinal.csv', null, Phaser.Tilemap.CSV);
         game.load.image('tiles', 'Map/tileset.png');
         game.load.image('back', 'Imagenes/Background2.png');                                    //Cargamos la primera imagen de fondo.
         game.load.image('menubg', 'Imagenes/menu.jpg');
@@ -13,7 +12,9 @@ var loadState = {
         game.load.spritesheet('j2Cargando', 'Sprites/lanzerDosCharging.png',55, 75, 20);
         
         game.load.bitmapFont('menu', 'Font/font.png', 'Font/font.fnt');
+        game.load.bitmapFont('desyrel', 'Font/carrier_command.png', 'Font/carrier_command.xml');
 
+        
         //Imagenes para el menu
         game.load.image('menu', 'Imagenes/number-buttons-90x90.png', 270, 180);
 

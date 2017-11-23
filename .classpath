@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Sagitpawn&apos;s Servidor REST/Player/src/main/java"/>
+	<classpathentry kind="src" path="Sagitpawn&apos;s Servidor REST/Player/src/test/java"/>
+	<classpathentry kind="lib" path="Sagitpawn&apos;s Servidor REST/Player/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="Sagitpawn&apos;s Servidor REST/Player/target/classes"/>
+</classpath>

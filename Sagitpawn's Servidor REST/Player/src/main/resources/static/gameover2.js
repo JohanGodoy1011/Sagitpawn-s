@@ -3,6 +3,10 @@ var finishState2 = {
     gameoversound2:undefined,
     prueba: true,
     timer2: undefined,
+    
+    text: undefined,
+    puntos: undefined,
+    
 
     create: function (){
 
@@ -13,24 +17,12 @@ var finishState2 = {
         finishState2.gameoversound2.loop = false;
         finishState2.gameoversound2.play();
         
-        game.add.sprite(0, 0, 'go21');                //Añadimos el texto 
+        game.add.sprite(0, 0, 'go22');                //Añadimos el texto 
 
         var cursors = game.input.keyboard.addKey(Phaser.Keyboard.R);
         cursors.onDown.add(this.start, this);
         
-        // Get de la puntuación
-        $.ajax({
-        	method: "GET",
-        	url: "http://127.0.0.1:8080/jugadores/1/puntos",
-        });
-
-<<<<<<< HEAD
-        //Petición para la puntuación del JUGADOR 1
-        playState.auxiliar = "6969";
-
-=======
-        
->>>>>>> f219d2528ecbf1e39b0e864ef51a405751fca40d
+          
         },
 
         start: function(){
@@ -45,28 +37,35 @@ var finishState2 = {
         },
         
         
-        update: function(){
+        update: function(){                
 
-            var txt = game.add.text(600, 555, "", optionStyle);
-            var optionStyle = {font: '40pt  Lucida Console', fill: 'white', align: 'left'};
-            txt = game.add.text(600, 555, playState.auxiliar, optionStyle);
+            img1 = function(){        
+            	
+            	finishState2.puntos = $.ajax({
+                	method: "GET",
+                	url: "http://127.0.0.1:8080/jugadores/1/puntos",
+                	data: { changed: JSON.stringify() }, 
+                    success: function(data) {
+                        playState.text = game.add.bitmapText(575, 555, 'desyrel', data, 42);            //data not $data
+                    },
+                });
+            	
+                playState.prueba = true; 
+                game.add.sprite(0, 0, 'go21');             
+            	this.timer2.stop();
 
-            img1 = function(){             
-                playState.prueba = true;
-                game.add.sprite(0, 0, 'go21');
-                this.timer2.stop();
             }
             
-            img2 = function(){
-                playState.prueba = false;            
+            img2 = function(){           
+                playState.prueba = false;             
                 game.add.sprite(0, 0, 'go22');
-                this.timer2.stop();
-                
+                this.timer2.stop();                
             }
 
+            
             if (playState.prueba == true){
                 this.timer2.loop(500, img2, this);
-                this.timer2.start();
+            	this.timer2.start();
             }else {
                 this.timer2.loop(500, img1, this);
                 this.timer2.start();

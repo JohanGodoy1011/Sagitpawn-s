@@ -52,10 +52,13 @@ var playState = {
     lanza: undefined,
     boton: undefined,
 
-
+    upkey: undefined,
+    
     //Función create
     create: function () {
 
+    	upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    	
         playState.musica = game.add.audio('musica');
         playState.musica.loopFull(0.17);
 
@@ -379,6 +382,24 @@ var playState = {
 
     update: function() {
         
+    	if (upKey.isDown)
+        {
+            playState.vidaJ1 -= 20;
+            $.ajax({
+            	method: "PUT",
+            	url: "http://127.0.0.1:8080/jugadores/1",
+            	data: JSON.stringify({puntos: "75" , turnos:"2"}),
+            	processData: false,
+            	headers: {
+            		"Content-type": "application/json",
+            	}
+            }).done(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            }).fail(function (data, textStatus, jqXHR){
+            	console.log(textStatus+ " " + jqXHR.statusCode());
+            });
+        }
+    	
         //Variables locales a update
         var timeOffset;
         
