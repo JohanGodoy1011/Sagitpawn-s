@@ -48,7 +48,7 @@ var finishState1 = {
             	url: "http://127.0.0.1:8080/jugadores/0/puntos",
             	data: { changed: JSON.stringify() }, 
                 success: function(data) {
-                    playState.text = game.add.bitmapText(575, 555, 'desyrel', data, 42);            //data not $data
+                    playState.text = game.add.bitmapText(595, 555, 'desyrel', data, 42);            //data not $data
                 },
             });
 
