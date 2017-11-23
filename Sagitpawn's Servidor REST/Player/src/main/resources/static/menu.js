@@ -21,7 +21,7 @@ var menuState = {
         
         var optionStyle = { font: '40pt Courier New', fill: 'red', align: 'left' };           //Estilo para los 'botones'
         //Creamos textos que funcionarán como botones
-        var txt = game.add.text(game.world.centerX, 300, 'Jugar', optionStyle);
+        var txt = game.add.text(game.world.centerX, 350, 'Jugar', optionStyle);
         txt.anchor.set(0.5);
         txt.inputEnabled = true;                            //Activamos el input
         txt.events.onInputOver.add(function (target) {      //Cuando pasamos el ratón por encima
@@ -32,18 +32,7 @@ var menuState = {
         });
         txt.events.onInputDown.add(this.start, this);       //Llamamos a la función start(), cuando clickamos en el texto
 
-        var txt2 = game.add.text(game.world.centerX, 400, 'High Scores', optionStyle);
-        txt2.anchor.set(0.5);
-        txt2.inputEnabled = true;
-        txt2.events.onInputOver.add(function (target) {
-            target.fill = "#000000";
-         });
-        txt2.events.onInputOut.add(function (target) {
-            target.fill = "red";
-        });
-        txt2.events.onInputDown.add(this.scores, this);
-
-        var txt3 = game.add.text(game.world.centerX, 500, 'Salir', optionStyle);
+        var txt3 = game.add.text(game.world.centerX, 450, 'Salir', optionStyle);
         txt3.anchor.set(0.5);
         txt3.inputEnabled = true;
         txt3.events.onInputOver.add(function (target) {
@@ -98,8 +87,4 @@ var menuState = {
         game.destroy();
     },
 
-    scores: function(){
-        game.state.add('highScore', highScore);
-        game.state.start('highScore');
-    }
 }
