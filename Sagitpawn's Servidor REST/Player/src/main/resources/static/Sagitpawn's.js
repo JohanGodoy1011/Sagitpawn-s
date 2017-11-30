@@ -54,10 +54,23 @@ var playState = {
 
     upkey: undefined,
     
+    
+    jugador1:undefined,
+    jugador2: undefined,
+    j1: undefined,
+    j2: undefined,
+    
+    
     //Función create
     create: function () {
 
     	upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    	
+    	playState.jugador1 = prompt("Introduce el nombre del jugador 1");
+    	playState.jugador2 = prompt("Introduce el nombre del jugador 2");
+    	
+    	playState.j1 = playState.jugador1;
+    	playState.j2 = playState.jugador2;
     	
         playState.musica = game.add.audio('musica');
         playState.musica.loopFull(0.17);
@@ -198,10 +211,11 @@ var playState = {
         
         
         // Peticiones POST para iniciar la puntuación de ambos jugadores
+        // Al hacer el post enviamos el prompt del inicio(clave del hashmap) y un jugador
         $.ajax({
         	method: "POST",
         	url: "http://127.0.0.1:8080/jugadores",
-        	data: JSON.stringify({puntos: "0" , turnos:"1"}),
+        	data: JSON.stringify({nombre: playState.j1, puntos: "0"}),
         	processData: false,
         	headers: {
         		"Content-type": "application/json",
@@ -215,7 +229,7 @@ var playState = {
         $.ajax({
         	method: "POST",
         	url: "http://127.0.0.1:8080/jugadores",
-        	data: JSON.stringify({puntos: "0" , turnos:"2"}),
+        	data: JSON.stringify({nombre: playState.j2, puntos: "0"}),
         	processData: false,
         	headers: {
         		"Content-type": "application/json",
@@ -381,23 +395,24 @@ var playState = {
     
 
     update: function() {
-        
+    	
     	if (upKey.isDown)
         {
             playState.vidaJ1 -= 20;
             $.ajax({
             	method: "PUT",
-            	url: "http://127.0.0.1:8080/jugadores/1",
-            	data: JSON.stringify({puntos: "75" , turnos:"2"}),
+            	url: "http://127.0.0.1:8080/jugadores/" + playState.j2,
+            	data: JSON.stringify({nombre: playState.j2, puntos: "75"}),
             	processData: false,
             	headers: {
             		"Content-type": "application/json",
             	}
-            }).done(function (data, textStatus, jqXHR){
-            	console.log(textStatus+ " " + jqXHR.statusCode());
-            }).fail(function (data, textStatus, jqXHR){
-            	console.log(textStatus+ " " + jqXHR.statusCode());
+            }).done(function (data, textStatus){
+            	console.log(textStatus+ " ");
+            }).fail(function (data, textStatus){
+            	console.log(textStatus+ " " + playState.j1 + "    " + playState.j2 );
             });
+            
         }
     	
         //Variables locales a update
@@ -492,8 +507,8 @@ var playState = {
             // Actualización en el servidor de la puntuación
             $.ajax({
             	method: "PUT",
-            	url: "http://127.0.0.1:8080/jugadores/1",
-            	data: JSON.stringify({puntos: playState.puntuacionj2 , turnos:"2"}),
+            	url: "http://127.0.0.1:8080/jugadores/" + playState.j2,
+            	data: JSON.stringify({nombre: playState.j2, puntos: playState.puntuacionj2}),
             	processData: false,
             	headers: {
             		"Content-type": "application/json",
@@ -518,8 +533,8 @@ var playState = {
             // Actualización en el servidor de la puntuación
             $.ajax({
             	method: "PUT",
-            	url: "http://127.0.0.1:8080/jugadores/0",
-            	data: JSON.stringify({puntos: playState.puntuacionj1 , turnos:"1"}),
+            	url: "http://127.0.0.1:8080/jugadores/" + playState.j1,
+            	data: JSON.stringify({nombre: playState.j1, puntos: playState.puntuacionj1}),
             	processData: false,
             	headers: {
             		"Content-type": "application/json",

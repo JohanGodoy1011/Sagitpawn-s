@@ -24,8 +24,6 @@ var loadState = {
         game.load.image('go21', 'Imagenes/gameover21.png', 270, 180);
         game.load.image('go22', 'Imagenes/gameover22.png', 270, 180);
 
-        //Imagenes High Score
-        game.load.image("hs", "Imagenes/high score.png")
 
         // Disparos versión 2
         game.load.image('bullet', 'Sprites/spear.png');

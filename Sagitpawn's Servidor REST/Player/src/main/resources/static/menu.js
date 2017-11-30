@@ -4,6 +4,7 @@ var menuState = {
 
     sonidoini:undefined,
     boton: undefined,
+    
 
     create: function (){
 

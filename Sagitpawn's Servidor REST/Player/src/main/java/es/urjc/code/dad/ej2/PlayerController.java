@@ -1,8 +1,5 @@
 package es.urjc.code.dad.ej2;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,53 +7,52 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;;
 
+
 @RestController
 public class PlayerController {
+
+	@Autowired
+	private playerService pS;
 	
-	private List<Player> jugadores = new ArrayList<>();
 	
 	@GetMapping("/jugadores")
 	public List<Player> getJugadores() {
-		return jugadores;
+		return pS.getPlayers();
 	}
 	
 	@GetMapping("/jugadores/{id}") 
-	public ResponseEntity<Player> getJugador(@PathVariable int id) {
-		if (jugadores.get(id) != null) {
-			return new ResponseEntity<>(jugadores.get(id), HttpStatus.OK);
+	public ResponseEntity<Player> getJugador(@PathVariable String id) {
+		if (pS.getPlayer(id) != null) {
+			return new ResponseEntity<>(pS.getPlayer(id), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
+	@GetMapping("/jugadores/{id}/puntos")
+	public int getPuntos(@PathVariable String id) {
+		return (pS.getPlayer(id)).getPuntos();
+	}
+	
+	
 	@PostMapping("/jugadores")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Player postJugador(@RequestBody Player jugador) {
-		jugadores.add(jugador);
-		return jugador;
+	public playerService postJugador(@RequestBody Player jugador) {
+		pS.addPlayer(jugador);
+		return pS;
 	}
-		
 	
 	@PutMapping("/jugadores/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public Player putAnuncio(@PathVariable int id, @RequestBody Player a) {
-		jugadores.set(id, a);
-		return jugadores.get(id);
+	public Player putPuntuacion(@PathVariable String id, @RequestBody Player play) {
+		int a = play.getPuntos();
+		pS.modPlayer(id, a);
+		return pS.getPlayer(id);
 	}
 	
-	
-	@DeleteMapping("/jugadores/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public Player delPlayer(@PathVariable int id) {
-		return jugadores.remove(id);
-	}
-
-	@GetMapping("/jugadores/{id}/puntos")
-	public int getPuntos(@PathVariable int id) {
-		return (jugadores.get(id)).getPuntos();
-	}
 	
 }

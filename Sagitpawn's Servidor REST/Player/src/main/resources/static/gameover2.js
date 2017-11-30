@@ -34,6 +34,8 @@ var finishState2 = {
             game.state.remove('gameover2');
             game.state.add('menu2', menuState2);
             game.state.start('menu2');
+            playState.puntuacionj1 = 0;
+            playState.puntuacionj2 = 0;
         },
         
         
@@ -43,7 +45,7 @@ var finishState2 = {
             	
             	finishState2.puntos = $.ajax({
                 	method: "GET",
-                	url: "http://127.0.0.1:8080/jugadores/1/puntos",
+                	url: "http://127.0.0.1:8080/jugadores/" + playState.j2 + "/puntos",
                 	data: { changed: JSON.stringify() }, 
                     success: function(data) {
                         playState.text = game.add.bitmapText(595, 555, 'desyrel', data, 42);            //data not $data

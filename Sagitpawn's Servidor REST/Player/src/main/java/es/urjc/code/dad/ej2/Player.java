@@ -3,8 +3,8 @@ package es.urjc.code.dad.ej2;
 public class Player {
 
 	private int puntos;
-	private int turnos;
-	
+	private String nombre;
+
 	public Player() {
 		//Constructor por defecto vacío
 	}
@@ -17,14 +17,12 @@ public class Player {
 		this.puntos = puntos;
 	}
 
-	public int getTurnos() {
-		return turnos;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTurnos(int turnos) {
-		this.turnos = turnos;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	
-	
 	
 }
