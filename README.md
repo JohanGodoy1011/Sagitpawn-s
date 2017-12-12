@@ -8,6 +8,7 @@
 <a href="#diagrama">4. Funcionamiento y diagrama de navegación.</a><br>
 <a href="#diagramaclases">5. Diagrama de clases.</a><br>
 <a href="#instrucciones">6. Instrucciones de ejecución.</a><br>
+<a href="#documentacion">7. Documentación del protocolo </a><br>
 
 <div id="grupos">
         <h2>
@@ -130,11 +131,11 @@
 <div id="diagramaclases">
   <h2>
   <a href="#TOC">5. Diagrama de clases</a>
+    </h2>
+</div>
     
 ![picture](https://i.imgur.com/Iy7qgpE.png)
     
-</h2>
-</div>
 
 <div id="instrucciones">
   <h2>
@@ -147,4 +148,22 @@
     <li>O bien, dentro del framework Spring Tool, podemos abrir el archivo PlayerAplicaction, que se encuentra dentro de la ruta <i>C:\\Usuario\Documents\GitHub\Sagitpawn-s\Sagitpawn's Servidor REST\PlayerApplication</i>, click derecho sobre él Run As>Java Application y después acceder a la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
   </ul>
   </p>
+</div>
+
+## Fase 4: Desarrollo del juego mediante WebSockets.
+
+                  
+<p> Para implementar esta versión, hemos decidido añadir en todos los mensajes intercambiados entre el cliente-servidor, un apartado "tipo", el cual nos servirá para ir modificando el tranascurso del juego según nos convenga.
+    <ul>
+      <li><strong>Caso 1: </strong> Cada vez que se establece una nueva conexión, el servidor reponderá con un mensaje el cual contiene dos campos:</li> 
+      <ul>
+          <li>tipo: sirve para identificar el tipo de mensaje en la part del cliente.</li>
+          <li>id: sirve para establecer un id a los jugadores que inician sesión.</li>
+      </ul>
+      <li><strong>Caso 2:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 1 al Jugador 2. </li>
+      <li><strong>Caso 3:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 2 al Jugador 1.  </li>
+      <li><strong>Caso 4:</strong> Sirve para ir actualizando y compartiendo la variable que coloca la cámara en función del turno.</li>
+      <li><strong>Caso 5:</strong> </li>
+     </ul>   
+    </p>
 </div>
