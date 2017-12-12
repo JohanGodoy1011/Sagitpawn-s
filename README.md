@@ -144,7 +144,7 @@
   <p>
     Para poder ejecutar Sagitpawn's, tenemos dos opciones:
   <ul>
-    <li>Podemos ejeturar el archivo llamado Sagitpawn's.jar y acceder al juego mediante la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
+    <li>Podemos ejecutar el archivo llamado Sagitpawn's.jar y acceder al juego mediante la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
     <li>O bien, dentro del framework Spring Tool, podemos abrir el archivo PlayerAplicaction, que se encuentra dentro de la ruta <i>C:\\Usuario\Documents\GitHub\Sagitpawn-s\Sagitpawn's Servidor REST\PlayerApplication</i>, click derecho sobre él Run As>Java Application y después acceder a la url: <i>127.0.0.1:8080/Sagitpawns.html</i>.</li>
   </ul>
   </p>
@@ -167,3 +167,11 @@
      </ul>   
     </p>
 </div>
+
+<div id="diagramaclases2">
+  <h2>
+  <a href="#TOC">2. Diagrama de clases</a>
+    </h2>
+</div>
+    
+![picture](https://i.imgur.com/34usxA5.png)
