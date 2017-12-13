@@ -155,15 +155,11 @@
                   
 <p> Para implementar esta versión, hemos decidido añadir en todos los mensajes intercambiados entre el cliente-servidor, un apartado "tipo", el cual nos servirá para ir modificando el tranascurso del juego según nos convenga.
     <ul>
-      <li><strong>Caso 1: </strong> Cada vez que se establece una nueva conexión, el servidor reponderá con un mensaje el cual contiene dos campos:</li> 
-      <ul>
-          <li>tipo: sirve para identificar el tipo de mensaje en la part del cliente.</li>
-          <li>id: sirve para establecer un id a los jugadores que inician sesión.</li>
-      </ul>
+      <li><strong>Caso 1: </strong> Cada vez que se establece una nueva conexión, el servidor responderá con un mensaje el cual contiene dos campos: <b><i>tipo</i></b> (sirve para identificar el tipo de mensaje en la parte del cliente) e <i><b>id</i></b> (sirve para establecer un id a los jugadores que inician sesión). A patir del segundo usuario, si accedemos a 'Jugar', nos saldrá una pantalla de "Servidor Saturado".</li> 
       <li><strong>Caso 2:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 1 al Jugador 2. </li>
       <li><strong>Caso 3:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 2 al Jugador 1.  </li>
       <li><strong>Caso 4:</strong> Sirve para ir actualizando y compartiendo la variable que coloca la cámara en función del turno.</li>
-      <li><strong>Caso 5:</strong> </li>
+      <li><strong>Caso 5:</strong> Utilizado para la gestión de puntuaciones.</li>
      </ul>   
     </p>
 </div>
