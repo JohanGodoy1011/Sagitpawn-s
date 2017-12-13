@@ -162,7 +162,6 @@
       <li><strong>Caso 2:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 1 al Jugador 2. </li>
       <li><strong>Caso 3:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 2 al Jugador 1.  </li>
       <li><strong>Caso 4:</strong> Sirve para ir actualizando y compartiendo la variable que coloca la cámara en función del turno.</li>
-      <li><strong>Caso 5:</strong> Utilizado para la gestión de puntuaciones.</li>
      </ul>   
     </p>
 </div>
