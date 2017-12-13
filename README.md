@@ -1,5 +1,8 @@
 # Sagitpawn's
 
+## Vídeo del Juego
+
+[![VideoGameplay](https://i.imgur.com/ljeDk8t.jpg)](https://youtu.be/8LhYcv3Fskk)
 
   ## Índice: 
 <a href="#grupos">1. Integrantes del Grupo</a><br>
@@ -153,7 +156,7 @@
 ## Fase 4: Desarrollo del juego mediante WebSockets.
 
                   
-<p> Para implementar esta versión, hemos decidido añadir en todos los mensajes intercambiados entre el cliente-servidor, un apartado "tipo", el cual nos servirá para ir modificando el tranascurso del juego según nos convenga.
+<p> Para implementar esta versión, hemos decidido añadir en todos los mensajes intercambiados entre el cliente-servidor, un apartado "tipo", el cual nos servirá para ir modificando el transcurso del juego según nos convenga.
     <ul>
       <li><strong>Caso 1: </strong> Cada vez que se establece una nueva conexión, el servidor responderá con un mensaje el cual contiene dos campos: <b><i>tipo</i></b> (sirve para identificar el tipo de mensaje en la parte del cliente) e <i><b>id</i></b> (sirve para establecer un id a los jugadores que inician sesión). A patir del segundo usuario, si accedemos a 'Jugar', nos saldrá una pantalla de "Servidor Saturado".</li> 
       <li><strong>Caso 2:</strong> Sirve para enviar los atributos de la lanza desde el Jugador 1 al Jugador 2. </li>
