@@ -45,7 +45,7 @@ var finishState2 = {
             	
             	finishState2.puntos = $.ajax({
                 	method: "GET",
-                	url: "http://127.0.0.1:8080/jugadores/puntos",
+                	url: "http://127.0.0.1:8082/jugadores/puntos",
                 	data: { changed: JSON.stringify() }, 
                     success: function(data) {
                         playState.text = game.add.bitmapText(595, 555, 'desyrel', data, 42);            //data not $data
